@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shishir Srivastava - Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-color: #1f2937;
+            --light-text: #4b5563;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .resume {
+            max-width: 210mm; /* A4 width */
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 15mm 20mm; /* A4 appropriate padding */
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .resume::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient);
+        }
+        
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .header .title {
+            font-size: 16px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 20px 0 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .contact-info {
+            font-size: 10px;
+            color: var(--light-text);
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .contact-info span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            background-color: rgba(37, 99, 235, 0.05);
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .contact-info span:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            font-size: 18px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .summary {
+            font-size: 11px;
+            text-align: justify;
+            line-height: 1.6;
+            color: var(--light-text);
+            padding: 12px;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 10px;
+        }
+        
+        .skill-item {
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.03));
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.05));
+        }
+        
+        .skill-item i {
+            color: var(--primary-color);
+        }
+        
+        .experience-item, .project-item, .education-item {
+            margin-bottom: 15px;
+            page-break-inside: avoid;
+            padding: 15px;
+            border-radius: 10px;
+            background: linear-gradient(to right, rgba(249, 250, 251, 0.9), rgba(249, 250, 251, 0.7));
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .experience-item:hover, .project-item:hover, .education-item:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .item-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .item-subtitle {
+            font-size: 11px;
+            color: var(--light-text);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .item-date {
+            font-size: 10px;
+            color: white;
+            white-space: nowrap;
+            font-weight: 600;
+            background: var(--gradient);
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-description {
+            font-size: 10px;
+            margin-left: 0;
+            line-height: 1.6;
+            color: var(--light-text);
+            padding-left: 0;
+        }
+        
+        .item-description li {
+            margin-bottom: 5px;
+            margin-left: 18px;
+            position: relative;
+        }
+        
+        .item-description li::marker {
+            color: var(--primary-color);
+        }
+        
+        .tech-stack {
+            font-size: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: 6px;
+            padding: 5px 10px;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.03));
+            border-radius: 6px;
+            display: inline-block;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .project-link {
+            font-size: 9px;
+            color: var(--primary-color);
+            margin-top: 6px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        
+        .project-link:hover {
+            color: var(--secondary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+            text-decoration: underline;
+        }
+        
+        .btn-download {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-download:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-download i {
+            font-size: 16px;
+        }
+        
+        .btn-share {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            background: var(--gradient);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-share:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-share:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-share i {
+            font-size: 16px;
+        }
+        
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .share-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .share-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .share-modal.show .share-content {
+            transform: translateY(0);
+        }
+        
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .share-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .close-btn:hover {
+            color: var(--text-color);
+        }
+        
+        .share-link-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .share-link {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px 0 0 8px;
+            font-size: 14px;
+            color: var(--light-text);
+            background-color: var(--bg-color);
+        }
+        
+        .copy-btn {
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .share-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .share-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .share-option:hover {
+            transform: translateY(-3px);
+        }
+        
+        .share-whatsapp {
+            background-color: #25D366;
+        }
+        
+        .share-email {
+            background-color: #EA4335;
+        }
+        
+        .share-linkedin {
+            background-color: #0077B5;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+                margin: 0;
+            }
+            
+            .resume {
+                max-width: 100%;
+                margin: 0;
+                padding: 10mm 15mm; /* Reduced padding for print */
+                box-shadow: none;
+                border-radius: 0;
+                overflow: visible;
+            }
+            
+            .btn-download, .btn-share, .share-modal {
+                display: none !important;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                margin-bottom: 15px;
+            }
+            
+            .experience-item, .project-item, .education-item {
+                background-color: white;
+                border: 1px solid #e5e7eb;
+                page-break-inside: avoid;
+            }
+            
+            .header {
+                margin-bottom: 15px;
+                padding-bottom: 15px;
+            }
+            
+            .item-description {
+                font-size: 9px;
+            }
+            
+            .section-title {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: var(--text-color);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            border-left: 4px solid #10b981;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+        
+        .toast.error {
+            border-left: 4px solid #ef4444;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 1002;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <button class="btn-download" id="downloadBtn">
+        <i class="fas fa-download"></i>
+        <span>Download PDF</span>
+    </button>
+    
+    <button class="btn-share" id="shareBtn">
+        <i class="fas fa-share-alt"></i>
+        <span>Share Resume</span>
+    </button>
+    
+    <div class="share-modal" id="shareModal">
+        <div class="share-content">
+            <div class="share-header">
+                <h3 class="share-title">Share Resume</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="share-link-container">
+                <input type="text" class="share-link" id="shareLink" readonly>
+                <button class="copy-btn" id="copyLink">Copy</button>
+            </div>
+            <div class="share-options">
+                <div class="share-option share-whatsapp" id="shareWhatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="share-option share-email" id="shareEmail">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="share-option share-linkedin" id="shareLinkedin">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="resume" id="resume">
+        <div class="header">
+            <h1>SHISHIR SRIVASTAVA</h1>
+            <div class="title">Frontend Developer | AI Agent Developer</div>
+            <div class="contact-info">
+                <span><i class="fas fa-envelope"></i> mcashishir23@gmail.com</span>
+                <span><i class="fas fa-phone"></i> +91-8090166716</span>
+                <span><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/shishir-srivastava-9aa807271" target="_blank">LinkedIn</a></span>
+                <span><i class="fas fa-globe"></i> <a href="https://new-portfolio-xi-fawn.vercel.app/" target="_blank">Portfolio</a></span>
+                <span><i class="fab fa-github"></i> <a href="https://github.com/MCAShishir23?tab=repositories" target="_blank">GitHub</a></span>
+                <span><i class="fas fa-map-marker-alt"></i> Kanpur, Uttar Pradesh, India</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-user"></i>
+                Professional Summary
+            </div>
+            <div class="summary">
+                Results-driven Frontend Developer and AI Agent Developer with 2+ years of experience building responsive web applications and intelligent automation systems. Expertise in React.js, JavaScript, HTML5, CSS3, and modern frontend frameworks. Proven track record in developing AI-powered voice agents using OpenAI API, LangChain, n8n, Twilio, and 11Labs. Successfully reduced support workload by 70% through AI automation while improving customer satisfaction. Passionate about creating seamless user experiences and implementing cutting-edge AI solutions for real-world business challenges.
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-code"></i>
+                Technical Skills
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="fab fa-react"></i> React.js</div>
+                <div class="skill-item"><i class="fab fa-js"></i> JavaScript (ES6+)</div>
+                <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+                <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+                <div class="skill-item"><i class="fab fa-node"></i> Node.js</div>
+                <div class="skill-item"><i class="fas fa-plug"></i> REST APIs</div>
+                <div class="skill-item"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+                <div class="skill-item"><i class="fas fa-mobile-alt"></i> Responsive Design</div>
+                <div class="skill-item"><i class="fas fa-robot"></i> OpenAI API</div>
+                <div class="skill-item"><i class="fas fa-link"></i> LangChain</div>
+                <div class="skill-item"><i class="fas fa-project-diagram"></i> n8n Automation</div>
+                <div class="skill-item"><i class="fas fa-phone"></i> Twilio API</div>
+                <div class="skill-item"><i class="fas fa-microphone"></i> 11Labs AI</div>
+                <div class="skill-item"><i class="fas fa-users"></i> AutoGen</div>
+                <div class="skill-item"><i class="fas fa-database"></i> Supabase</div>
+                <div class="skill-item"><i class="fas fa-sitemap"></i> DOM Manipulation</div>
+                <div class="skill-item"><i class="fas fa-server"></i> State Management</div>
+                <div class="skill-item"><i class="fas fa-brain"></i> NLP Integration</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-briefcase"></i>
+                Professional Experience
+            </div>
+            
+            <div class="experience-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">Frontend Developer (Internship)</div>
+                        <div class="item-subtitle">KN IT SELL Pvt. Ltd., Kanpur</div>
+                    </div>
+                    <div class="item-date">2024 - 2025</div>
+                </div>
+                <ul class="item-description">
+                    <li>Developed internal Employee Management System (EMS) using React.js, Node.js, and Supabase, streamlining HR operations for 100+ remote employees across multiple departments</li>
+                    <li>Implemented responsive frontend interfaces with React.js, reducing page load time by 40% through optimized component architecture and state management</li>
+                    <li>Built CRUD functionality for employee data management, enabling HR team to efficiently add, edit, view, and delete records, reducing manual errors by 60%</li>
+                    <li>Designed role-based access control system (Admin, Manager, Employee) ensuring data security and proper authorization</li>
+                    <li>Created attendance and leave tracking modules with intuitive dashboards, improving workflow automation and productivity by 35%</li>
+                    <li>Collaborated with cross-functional teams using Git for version control and Agile methodologies for project delivery</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">AI Agent Developer</div>
+                        <div class="item-subtitle">PhiTech Labs Pvt. Ltd.</div>
+                    </div>
+                    <div class="item-date">2025</div>
+                </div>
+                <ul class="item-description">
+                    <li>Engineered AI-powered inbound calling agent using n8n workflows, Twilio SIP Trunk, 11Labs voice synthesis, and OpenAI API, achieving 70% reduction in support workload</li>
+                    <li>Implemented real-time speech-to-text and text-to-speech integration enabling natural conversational AI interactions with customers</li>
+                    <li>Developed intelligent NLP-driven response system using LangChain and OpenAI GPT models, handling 500+ daily customer queries autonomously</li>
+                    <li>Built automated call routing, logging, and escalation workflows integrated with CRM systems, ensuring 24/7 availability</li>
+                    <li>Optimized voice agent response time to under 2 seconds, significantly improving customer satisfaction scores by 45%</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-project-diagram"></i>
+                Key Projects
+            </div>
+            
+            <div class="project-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">Employee Management System (EMS)</div>
+                    </div>
+                    <div class="item-date">2024 - 2025</div>
+                </div>
+                <div class="tech-stack">Tech Stack: React.js, Node.js, Supabase, JavaScript, HTML5, CSS3</div>
+                <div class="project-link"><i class="fas fa-external-link-alt"></i> kn-ems.vercel.app</div>
+                <ul class="item-description">
+                    <li>Full-stack HR management application with responsive React frontend and Node.js backend</li>
+                    <li>Comprehensive CRUD operations for employee records management with real-time database sync</li>
+                    <li>Role-based authentication and authorization system ensuring secure data access</li>
+                    <li>Dynamic attendance tracking and leave management module with visual analytics dashboard</li>
+                    <li>Mobile-responsive design ensuring seamless experience across all devices</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">AI Inbound Calling Agent (n8n Workflow)</div>
+                    </div>
+                    <div class="item-date">Sep 2024 - 2025</div>
+                </div>
+                <div class="tech-stack">Tech Stack: n8n, Twilio (SIP/Voice API), 11Labs, OpenAI API, LangChain, NLP</div>
+                <ul class="item-description">
+                    <li>Designed end-to-end AI voice assistant workflow handling automated call routing and intelligent query resolution</li>
+                    <li>Integrated 11Labs for natural voice synthesis and OpenAI for contextual understanding of customer intent</li>
+                    <li>Implemented smart escalation logic to seamlessly transfer complex queries to human agents</li>
+                    <li>Built call analytics and logging system for performance monitoring and continuous improvement</li>
+                    <li>Achieved 70% automation rate while maintaining high customer satisfaction and 24/7 availability</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">LinkedIn Outreach Automation (n8n Workflow)</div>
+                    </div>
+                    <div class="item-date">Aug 2024 - 2025</div>
+                </div>
+                <div class="tech-stack">Tech Stack: n8n, LinkedIn API, Google Sheets, Email API, Automation</div>
+                <ul class="item-description">
+                    <li>Automated LinkedIn connection requests, personalized follow-ups, and engagement tracking using n8n workflows</li>
+                    <li>Integrated Google Sheets for prospect management and Email API for multi-channel outreach campaigns</li>
+                    <li>Reduced manual outreach effort by 80% while maintaining personalization and increasing response rates by 35%</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">User Management System</div>
+                    </div>
+                    <div class="item-date">2023 - 2024</div>
+                </div>
+                <div class="tech-stack">Tech Stack: React.js, JavaScript, HTML5, CSS3, Authentication APIs</div>
+                <div class="project-link"><i class="fas fa-external-link-alt"></i> vercel.com/shishir-srivastava-projects/user-management</div>
+                <ul class="item-description">
+                    <li>Developed secure authentication and authorization system with JWT token implementation</li>
+                    <li>Built complete CRUD operations for user management with role-based access control</li>
+                    <li>Created intuitive admin and user dashboards with responsive design and smooth UX</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">MelodyMingle - Online Music System</div>
+                    </div>
+                    <div class="item-date">Jan 2023 - Feb 2024</div>
+                </div>
+                <div class="tech-stack">Tech Stack: JavaScript, HTML5, CSS3, DOM Manipulation, Local Storage</div>
+                <div class="project-link"><i class="fab fa-github"></i> GitHub: MelodyMingle</div>
+                <ul class="item-description">
+                    <li>Built interactive music streaming platform with search, play, and playlist creation features</li>
+                    <li>Implemented DOM manipulation and state management for dynamic playlist functionality</li>
+                    <li>Designed responsive user interface with custom audio player controls and favorites management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Education
+            </div>
+            
+            <div class="education-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">Master of Computer Application (MCA)</div>
+                        <div class="item-subtitle">Maharana Pratap Engineering College, Kanpur</div>
+                    </div>
+                    <div class="item-date">2022 - 2024</div>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">Bachelor of Computer Application (BCA)</div>
+                        <div class="item-subtitle">Dayanand Academy of Management Studies, Kanpur</div>
+                    </div>
+                    <div class="item-date">2018 - 2021</div>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">Intermediate (12th)</div>
+                        <div class="item-subtitle">BSS Inter College, Kaka Deo, Kanpur</div>
+                    </div>
+                    <div class="item-date">2017 - 2018</div>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="item-header">
+                    <div style="flex: 1;">
+                        <div class="item-title">High School (10th)</div>
+                        <div class="item-subtitle">BSS Inter College, Kaka Deo, Kanpur</div>
+                    </div>
+                    <div class="item-date">2015 - 2016</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">PDF downloaded successfully!</span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // Get current page URL
+        const currentUrl = window.location.href;
+        
+        // Create shareable link for PDF download
+        const pdfShareUrl = `${currentUrl}?download=pdf`;
+        
+        // Set share link input value
+        document.getElementById('shareLink').value = pdfShareUrl;
+        
+        // Check if URL has download parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('download') === 'pdf') {
+            // Auto-download PDF when page loads with download parameter
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    downloadPDF();
+                }, 1000);
+            });
+        }
+        
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+            
+            // Update icon based on type
+            const icon = toast.querySelector('i');
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Update progress bar
+        function updateProgress(percent) {
+            const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressContainer');
+            
+            progressContainer.style.display = 'block';
+            progressBar.style.width = percent + '%';
+            
+            if (percent >= 100) {
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        // PDF download function
+        async function downloadPDF() {
+            const button = document.getElementById('downloadBtn');
+            const buttonContent = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '<div class="loading"></div><span>Generating PDF...</span>';
+            button.disabled = true;
+            
+            try {
+                updateProgress(10);
+                
+                const element = document.getElementById('resume');
+                const originalBg = document.body.style.background;
+                document.body.style.background = 'white';
+                
+                // Temporarily hide the buttons
+                button.style.display = 'none';
+                document.getElementById('shareBtn').style.display = 'none';
+                
+                updateProgress(30);
+                
+                // Calculate the dimensions to ensure full content is captured
+                const width = element.scrollWidth;
+                const height = element.scrollHeight;
+                
+                const canvas = await html2canvas(element, {
+                    scale: 2, // Adjusted scale for A4
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    width: width,
+                    height: height,
+                    windowWidth: width,
+                    windowHeight: height,
+                    scrollX: 0,
+                    scrollY: 0,
+                    onclone: (clonedDoc) => {
+                        const clonedResume = clonedDoc.getElementById('resume');
+                        clonedResume.style.boxShadow = 'none';
+                        clonedResume.style.padding = '10mm 15mm'; // A4 appropriate padding
+                        clonedResume.style.borderRadius = '0';
+                        clonedResume.style.overflow = 'visible';
+                        
+                        // Ensure all text is black for better PDF readability
+                        const allElements = clonedDoc.querySelectorAll('*');
+                        allElements.forEach(el => {
+                            const styles = window.getComputedStyle(el);
+                            if (styles.color !== 'rgb(255, 255, 255)') {
+                                el.style.color = '#000000';
+                            }
+                        });
+                    }
+                });
+                
+                updateProgress(70);
+                
+                document.body.style.background = originalBg;
+                
+                // Show the buttons again
+                button.style.display = 'flex';
+                document.getElementById('shareBtn').style.display = 'flex';
+                
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                const { jsPDF } = window.jspdf;
+                
+                // Calculate dimensions to fit the entire content in A4
+                const a4Width = 210; // A4 width in mm
+                const a4Height = 297; // A4 height in mm
+                
+                // Calculate the aspect ratio
+                const imgRatio = canvas.height / canvas.width;
+                const a4Ratio = a4Height / a4Width;
+                
+                let imgWidth, imgHeight;
+                
+                if (imgRatio > a4Ratio) {
+                    // Image is taller than A4 aspect ratio
+                    imgHeight = a4Height;
+                    imgWidth = a4Height / imgRatio;
+                } else {
+                    // Image is wider than A4 aspect ratio
+                    imgWidth = a4Width;
+                    imgHeight = a4Width * imgRatio;
+                }
+                
+                // Create PDF with A4 format
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4',
+                    compress: true
+                });
+                
+                updateProgress(90);
+                
+                // Calculate the position to center the image
+                const xOffset = (a4Width - imgWidth) / 2;
+                const yOffset = 10; // 10mm top margin
+                
+                // Add the image to the PDF
+                pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight, '', 'FAST');
+                
+                // Save the PDF
+                pdf.save('Shishir_Srivastava_Resume.pdf');
+                
+                updateProgress(100);
+                
+                // Show success message
+                showToast('PDF downloaded successfully!', 'success');
+                
+                // Reset button
+                button.innerHTML = buttonContent;
+                button.disabled = false;
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                
+                // Show error message
+                showToast('Error generating PDF. Please try again.', 'error');
+                
+                // Reset button
+                button.innerHTML = buttonContent;
+                button.disabled = false;
+                
+                // Hide progress bar
+                document.getElementById('progressContainer').style.display = 'none';
+            }
+        }
+        
+        // Share modal functions
+        const shareModal = document.getElementById('shareModal');
+        const shareBtn = document.getElementById('shareBtn');
+        const closeModal = document.getElementById('closeModal');
+        const copyLink = document.getElementById('copyLink');
+        const shareLinkInput = document.getElementById('shareLink');
+        
+        // Open share modal
+        shareBtn.addEventListener('click', () => {
+            shareModal.classList.add('show');
+        });
+        
+        // Close share modal
+        closeModal.addEventListener('click', () => {
+            shareModal.classList.remove('show');
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === shareModal) {
+                shareModal.classList.remove('show');
+            }
+        });
+        
+        // Copy link to clipboard
+        copyLink.addEventListener('click', () => {
+            shareLinkInput.select();
+            document.execCommand('copy');
+            showToast('Link copied to clipboard!', 'success');
+        });
+        
+        // Share on WhatsApp
+        document.getElementById('shareWhatsapp').addEventListener('click', () => {
+            const text = `Check out my resume: ${pdfShareUrl}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        });
+        
+        // Share on Email
+        document.getElementById('shareEmail').addEventListener('click', () => {
+            const subject = 'Shishir Srivastava - Resume';
+            const body = `Hi,\n\nPlease find my resume at the following link:\n${pdfShareUrl}\n\nBest regards,\nShishir Srivastava`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+        
+        // Share on LinkedIn
+        document.getElementById('shareLinkedin').addEventListener('click', () => {
+            const text = `Check out my resume: ${pdfShareUrl}`;
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pdfShareUrl)}`, '_blank');
+        });
+        
+        // Add event listener to download button
+        document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+        
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add animation to sections when they come into view
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
