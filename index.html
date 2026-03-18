@@ -3,2733 +3,1892 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yash Gautam - Security Engineer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>MediCore AI - Hospital Receptionist Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* =====================
-           GLOBAL STYLES & RESET
-           ===================== */
+        :root {
+            --bg-primary: #0a0f1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a2332;
+            --bg-elevated: #232f42;
+            --accent-primary: #00d4aa;
+            --accent-secondary: #00b894;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --accent-info: #3b82f6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #2d3a4f;
+            --glow-primary: rgba(0, 212, 170, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            /* Enhanced Tech/AI Color Palette */
-            --primary-color: #00d4ff;
-            --secondary-color: #0a0e27;
-            --accent-color: #ff00ff;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --bg-dark: #0a0e27;
-            --bg-darker: #050810;
-            --card-bg: rgba(15, 23, 42, 0.7);
-            --border-glow: rgba(0, 212, 255, 0.3);
-            --transition-speed: 0.3s;
-            --gradient-1: linear-gradient(135deg, #00d4ff, #7b2ff7);
-            --gradient-2: linear-gradient(135deg, #ff00ff, #ff0080);
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-darker);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            min-height: 100vh;
             overflow-x: hidden;
-            cursor: none;
-            position: relative;
         }
 
-        /* Background animation */
-        body::before {
-            content: '';
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Background Animation */
+        .bg-pattern {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+            inset: 0;
             z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 184, 148, 0.04) 0%, transparent 70%);
         }
 
-        /* =====================
-           CUSTOM CURSOR
-           ===================== */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
+        .grid-overlay {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px var(--primary-color);
-            mix-blend-mode: difference;
+            inset: 0;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
         }
 
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.15s ease;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        .cursor-grow {
-            transform: translate(-50%, -50%) scale(1.5);
-            background: rgba(0, 212, 255, 0.1);
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
         }
 
-        /* =====================
-           LOADING SCREEN
-           ===================== */
-        .loader-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-darker);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease;
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
         }
 
-        .loader {
-            position: relative;
-            width: 200px;
-            height: 200px;
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
         }
 
-        .loader-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid transparent;
-            border-top-color: var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-        }
-
-        .loader-ring:nth-child(2) {
-            border-top-color: var(--accent-color);
-            animation-duration: 2s;
-            animation-direction: reverse;
-        }
-
-        .loader-ring:nth-child(3) {
-            border-top-color: rgba(0, 212, 255, 0.5);
-            animation-duration: 2.5s;
-        }
-
-        .loader-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            color: var(--primary-color);
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader-container.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* =====================
-           CYBER BACKGROUND
-           ===================== */
-        .cyber-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
-        /* =====================
-           NAVIGATION BAR
-           ===================== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 14, 39, 0.95);
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-glow);
-            transition: all var(--transition-speed);
+            transition: all 0.3s ease;
         }
 
-        .navbar.scrolled {
-            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.1);
+        .card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px rgba(0, 212, 170, 0.1);
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
+        /* Pulse Animation */
+        .pulse-dot {
+            position: relative;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            animation: pulse 2s infinite;
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            animation: pulse 2s ease-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
         }
 
-        .nav-links {
+        /* Status Indicators */
+        .status-available {
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        .status-busy {
+            background: var(--accent-warning);
+            box-shadow: 0 0 10px var(--accent-warning);
+        }
+
+        .status-offline {
+            background: var(--accent-danger);
+            box-shadow: 0 0 10px var(--accent-danger);
+        }
+
+        /* AI Chat Styles */
+        .ai-typing {
             display: flex;
-            list-style: none;
-            gap: 2rem;
+            gap: 4px;
+            padding: 12px 16px;
         }
 
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color var(--transition-speed);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width var(--transition-speed);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-color);
-            transition: all var(--transition-speed);
-        }
-
-        /* =====================
-           HERO SECTION
-           ===================== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 100px 2rem 2rem;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text {
-            animation: fadeInLeft 1s ease;
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .hero-text .greeting {
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-text .role {
-            font-size: 1.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-text .description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--primary-color);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-speed);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-color);
-            transition: left var(--transition-speed);
-            z-index: -1;
-        }
-
-        .btn:hover::before {
-            left: 0;
-        }
-
-        .btn:hover {
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        .btn-secondary {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-
-        .btn-secondary::before {
-            background: var(--accent-color);
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 0 20px var(--accent-color);
-        }
-
-        .hero-image {
-            position: relative;
-            animation: fadeInRight 1s ease;
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .profile-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 0 auto;
-            perspective: 1000px;
-        }
-
-        .profile-border {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary-color);
+        .ai-typing span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
             border-radius: 50%;
-            animation: rotate 10s linear infinite;
-            transform-style: preserve-3d;
+            animation: typingBounce 1.4s ease-in-out infinite;
         }
 
-        .profile-border::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        @keyframes rotate {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        .profile-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid var(--bg-dark);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
-            transition: transform 0.5s ease;
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(20%);
-            transition: all var(--transition-speed);
-        }
-
-        .profile-image:hover img {
-            filter: grayscale(0%);
-            transform: scale(1.1);
-        }
-
-        .profile-container:hover .profile-image {
-            transform: translate(-50%, -50%) rotateY(10deg);
-        }
-
-        /* =====================
-           SOCIAL LINKS
-           ===================== */
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            transition: all var(--transition-speed);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-color);
-            transform: scale(0);
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            z-index: -1;
-        }
-
-        .social-links a:hover::before {
-            transform: scale(1);
-        }
-
-        .social-links a:hover {
-            color: var(--bg-dark);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px var(--primary-color);
-        }
-
-        /* =====================
-           SECTION STYLES
-           ===================== */
-        .section {
-            padding: 100px 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title h2 {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--gradient-1);
-        }
-
-        .section-title p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* =====================
-           ABOUT SECTION
-           ===================== */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .about-skills {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-category::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            animation: flow 8s linear infinite;
-        }
-
-        @keyframes flow {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        .skill-category:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            padding: 0.5rem 0;
-            color: var(--text-secondary);
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .skill-category li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-        }
-
-        /* =====================
-           EXPERIENCE SECTION
-           ===================== */
-        .experience-container {
-            position: relative;
-        }
-
-        .experience-timeline {
-            position: relative;
-            padding-left: 50px;
-        }
-
-        .experience-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background: var(--gradient-1);
-        }
-
-        .experience-item {
-            position: relative;
-            margin-bottom: 3rem;
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            transition: all var(--transition-speed);
-            overflow: hidden;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .experience-item:hover::before {
-            transform: translateX(0);
-        }
-
-        .experience-item::after {
-            content: '';
-            position: absolute;
-            left: -50px;
-            top: 30px;
-            width: 15px;
-            height: 15px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        .experience-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .experience-header h3 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-
-        .experience-header .company {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-        }
-
-        .experience-header .duration {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        .experience-description ul {
-            list-style: none;
-            color: var(--text-secondary);
-        }
-
-        .experience-description li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .experience-description li::before {
-            content: '◆';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-        }
-
-        /* =====================
-           EDUCATION SECTION
-           ===================== */
-        .education-card {
-            background: var(--card-bg);
-            padding: 3rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .education-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 255, 0.05));
-            z-index: -1;
-        }
-
-        .education-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .education-card h3 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .education-card .institution {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .education-card .duration {
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .coursework {
-            margin-top: 1.5rem;
-        }
-
-        .coursework h4 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .coursework-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .coursework-tags span {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--primary-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            transition: all var(--transition-speed);
-        }
-
-        .coursework-tags span:hover {
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            transform: scale(1.05);
-        }
-
-        /* =====================
-           SKILLS SECTION
-           ===================== */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 255, 0.05));
-            z-index: -1;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .skill-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-        }
-
-        .skill-card h3 i {
-            font-size: 1.5rem;
-        }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .skill-items span {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--primary-color);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            transition: all var(--transition-speed);
-        }
-
-        .skill-items span:hover {
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--primary-color);
-        }
-
-        /* =====================
-           CERTIFICATIONS SECTION
-           ===================== */
-        .certifications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .cert-card {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            text-align: center;
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity var(--transition-speed);
-        }
-
-        .cert-card:hover::before {
-            opacity: 1;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
-            border-color: var(--primary-color);
-        }
-
-        .cert-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .cert-card h3 {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-card p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        /* =====================
-           PROJECTS SECTION
-           ===================== */
-        .projects-container {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all var(--transition-speed);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            position: relative;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 255, 0.05));
-            z-index: -1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .project-image {
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-            min-height: 300px;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
-        }
-
-        .project-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image::before {
-            transform: translateX(100%);
-        }
-
-        .project-content {
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .project-content h3 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-content p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-content ul {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            padding-left: 20px;
-        }
-
-        .project-content li {
-            margin-bottom: 0.5rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tags span {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--primary-color);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            padding: 10px 20px;
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all var(--transition-speed);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .project-links a:hover {
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px var(--primary-color);
-        }
-
-        /* =====================
-           CONTACT SECTION
-           ===================== */
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            background: var(--card-bg);
-            padding: 2rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            transition: all var(--transition-speed);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .contact-item:hover::before {
-            transform: translateX(0);
-        }
-
-        .contact-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-            border-color: var(--primary-color);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .contact-details h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-details p {
-            color: var(--text-secondary);
-        }
-
-        .contact-details a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color var(--transition-speed);
-        }
-
-        .contact-details a:hover {
-            color: var(--primary-color);
-        }
-
-        .contact-form {
-            background: var(--card-bg);
-            padding: 3rem;
-            border: 1px solid var(--border-glow);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 0, 255, 0.05));
-            z-index: -1;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid var(--border-glow);
-            border-radius: 5px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all var(--transition-speed);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-speed);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px var(--primary-color);
-        }
-
-        /* =====================
-           FOOTER
-           ===================== */
-        footer {
-            background: var(--bg-dark);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border-glow);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-social a {
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            transition: all var(--transition-speed);
-            text-decoration: none;
-        }
-
-        .footer-social a:hover {
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            transform: translateY(-5px);
-        }
-
-        .footer-text {
-            color: var(--text-secondary);
-        }
-
-        .footer-text p {
-            margin: 0.5rem 0;
-        }
-
-        /* =====================
-           SCROLL TO TOP BUTTON
-           ===================== */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-speed);
-            z-index: 999;
-            box-shadow: 0 5px 20px var(--primary-color);
-        }
-
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-5px);
-        }
-
-        /* =====================
-           CERTIFICATE MODAL
-           ===================== */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 900px;
-            max-height: 90%;
-            margin-top: 5%;
-            border-radius: 10px;
-            box-shadow: 0 0 30px var(--primary-color);
-        }
-
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: var(--text-primary);
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover {
-            color: var(--primary-color);
-        }
-
-        /* =====================
-           RESPONSIVE DESIGN
-           ===================== */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .profile-container {
-                width: 300px;
-                height: 300px;
-            }
-
-            .profile-image {
-                width: 260px;
-                height: 260px;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: rgba(10, 14, 39, 0.98);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: left var(--transition-speed);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .menu-toggle.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .menu-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -7px);
-            }
-
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-
-            .hero-text .role {
-                font-size: 1.3rem;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .about-skills {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .certifications-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        /* =====================
-           ANIMATIONS
-           ===================== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--card-bg);
-            border: 2px solid var(--primary-color);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            color: var(--primary-color);
-            font-weight: 600;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .toast.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* Cybersecurity Animation */
-        .cyber-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.1;
-        }
-
-        .cyber-line {
-            position: absolute;
-            background: var(--primary-color);
-            height: 1px;
-            width: 100px;
-            animation: moveLine 10s linear infinite;
-        }
-
-        @keyframes moveLine {
-            0% {
-                transform: translateX(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(calc(100vw + 100px));
-                opacity: 0;
-            }
-        }
-
-        /* 3D Card Animation */
-        .card-3d {
-            perspective: 1000px;
-        }
+        .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
 
-        .card-3d-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
         }
 
-        .card-3d:hover .card-3d-inner {
-            transform: rotateY(10deg) rotateX(-10deg);
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
         }
 
-        /* Floating particles */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
+        .progress-ring circle {
+            transition: stroke-dashoffset 0.5s ease;
         }
 
+        /* Floating Particles */
         .particle {
             position: absolute;
             width: 4px;
             height: 4px;
-            background: var(--primary-color);
+            background: var(--accent-primary);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: float 15s linear infinite;
+            opacity: 0.5;
+            animation: float 8s ease-in-out infinite;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-10px) translateX(-10px); }
+            75% { transform: translateY(-30px) translateX(5px); }
         }
 
-        /* Glowing border animation */
-        .glow-border {
-            position: relative;
+        /* Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        .glow-border::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: var(--gradient-1);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0.7;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                opacity: 0.5;
-            }
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Enhanced flow animation for containers */
-        .flow-container {
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .flow-container::before {
+        .btn-primary::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            animation: flow 8s linear infinite;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2));
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
         }
 
-        /* Cyber grid background */
-        .cyber-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Input Styles */
+        .input-field {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: var(--text-primary);
             width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 212, 170, 0.2);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* Live Indicator */
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-danger);
+            border-radius: 50%;
+            animation: livePulse 1.5s ease infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Queue Item */
+        .queue-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .queue-item:hover {
+            background: var(--bg-elevated);
+            transform: translateX(5px);
+        }
+
+        /* Doctor Card */
+        .doctor-card {
+            transition: all 0.3s ease;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-danger);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: badgePop 0.3s ease;
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Wave Animation for AI */
+        .wave-container {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 30px;
+        }
+
+        .wave-bar {
+            width: 4px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) { animation-delay: 0s; height: 10px; }
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; height: 20px; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 15px; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; height: 25px; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; height: 12px; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 260px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0 !important;
+            }
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 212, 170, 0.1);
+            color: var(--accent-primary);
+            border-left-color: var(--accent-primary);
+        }
+
+        /* Activity Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 24px;
+            bottom: -20px;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bg-elevated);
+            border: 2px solid var(--accent-primary);
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus States */
+        *:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="bg-pattern"></div>
+    <div class="grid-overlay"></div>
 
-    <!-- Loader -->
-    <div class="loader-container" id="loader">
-        <div class="loader">
-            <div class="loader-ring"></div>
-            <div class="loader-ring"></div>
-            <div class="loader-ring"></div>
-            <div class="loader-text">LOADING...</div>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="p-6 border-b border-[var(--border-color)]">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-[var(--bg-primary)]">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-[var(--text-primary)]">MediCore AI</h1>
+                    <p class="text-xs text-[var(--text-muted)]">Hospital Management</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="py-4">
+            <div class="px-4 py-2 text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">Main Menu</div>
+            
+            <div class="nav-item active" data-section="dashboard" onclick="switchSection('dashboard')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                </svg>
+                <span>Dashboard</span>
+            </div>
+
+            <div class="nav-item" data-section="appointments" onclick="switchSection('appointments')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <span>Appointments</span>
+            </div>
+
+            <div class="nav-item" data-section="patients" onclick="switchSection('patients')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <span>Patients</span>
+                <span class="ml-auto bg-[var(--accent-primary)] text-[var(--bg-primary)] text-xs px-2 py-0.5 rounded-full font-semibold">47</span>
+            </div>
+
+            <div class="nav-item" data-section="doctors" onclick="switchSection('doctors')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+                <span>Doctors</span>
+            </div>
+
+            <div class="px-4 py-2 mt-4 text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">AI Agent</div>
+
+            <div class="nav-item" data-section="ai-agent" onclick="switchSection('ai-agent')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                    <circle cx="8" cy="14" r="1"/>
+                    <circle cx="16" cy="14" r="1"/>
+                </svg>
+                <span>AI Assistant</span>
+                <div class="ml-auto w-2 h-2 rounded-full bg-[var(--accent-primary)] animate-pulse"></div>
+            </div>
+
+            <div class="nav-item" data-section="calls" onclick="switchSection('calls')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>Call Logs</span>
+            </div>
+
+            <div class="px-4 py-2 mt-4 text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">System</div>
+
+            <div class="nav-item" data-section="analytics" onclick="switchSection('analytics')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"/>
+                    <line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <span>Analytics</span>
+            </div>
+
+            <div class="nav-item" onclick="openSettings()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+                <span>Settings</span>
+            </div>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-[var(--border-color)]">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--accent-info)] to-[var(--accent-primary)] flex items-center justify-center font-bold text-[var(--bg-primary)]">
+                    PR
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-[var(--text-primary)]">Priya Sharma</p>
+                    <p class="text-xs text-[var(--text-muted)]">Senior Receptionist</p>
+                </div>
+                <button class="p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors" aria-label="Logout">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--text-muted)]">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content ml-[260px] min-h-screen">
+        <!-- Top Header -->
+        <header class="sticky top-0 z-50 bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-[var(--border-color)]">
+            <div class="flex items-center justify-between px-6 py-4">
+                <div class="flex items-center gap-4">
+                    <button class="lg:hidden p-2 rounded-lg hover:bg-[var(--bg-card)] transition-colors" onclick="toggleSidebar()" aria-label="Toggle Menu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <div>
+                        <h2 class="text-xl font-bold text-[var(--text-primary)]" id="sectionTitle">Dashboard Overview</h2>
+                        <p class="text-sm text-[var(--text-muted)]" id="currentTime">Loading...</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- Search -->
+                    <div class="hidden md:flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl px-4 py-2">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--text-muted)]">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                        <input type="text" placeholder="Search patients, doctors..." class="bg-transparent border-none outline-none text-sm w-48 text-[var(--text-primary)]" id="globalSearch" oninput="handleSearch(this.value)">
+                    </div>
+
+                    <!-- Emergency Alert -->
+                    <button class="relative p-3 rounded-xl bg-[var(--accent-danger)]/20 border border-[var(--accent-danger)]/50 hover:bg-[var(--accent-danger)]/30 transition-all group" onclick="triggerEmergency()" aria-label="Emergency Alert">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-danger)] group-hover:scale-110 transition-transform">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </button>
+
+                    <!-- Notifications -->
+                    <button class="relative p-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-all" onclick="toggleNotifications()" aria-label="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--text-secondary)]">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="notification-badge" id="notifBadge">5</span>
+                    </button>
+
+                    <!-- AI Status -->
+                    <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--accent-primary)]/10 border border-[var(--accent-primary)]/30">
+                        <div class="live-indicator text-xs font-semibold text-[var(--accent-primary)]">AI ACTIVE</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="p-6">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6 fade-in-up stagger-1">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="p-3 rounded-xl bg-[var(--accent-primary)]/20">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-primary)]">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs text-[var(--accent-primary)] bg-[var(--accent-primary)]/20 px-2 py-1 rounded-full">+12%</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-[var(--text-primary)] mb-1" id="statPatients">247</h3>
+                    <p class="text-sm text-[var(--text-muted)]">Total Patients Today</p>
+                    <div class="mt-4 h-1 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
+                        <div class="h-full w-3/4 bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-secondary)] rounded-full" style="animation: progressFill 1s ease forwards;"></div>
+                    </div>
+                </div>
+
+                <div class="card p-6 fade-in-up stagger-2">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="p-3 rounded-xl bg-[var(--accent-info)]/20">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-info)]">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs text-[var(--accent-warning)] bg-[var(--accent-warning)]/20 px-2 py-1 rounded-full">3 Pending</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-[var(--text-primary)] mb-1" id="statAppointments">89</h3>
+                    <p class="text-sm text-[var(--text-muted)]">Appointments Today</p>
+                    <div class="mt-4 h-1 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
+                        <div class="h-full w-2/3 bg-gradient-to-r from-[var(--accent-info)] to-[var(--accent-primary)] rounded-full"></div>
+                    </div>
+                </div>
+
+                <div class="card p-6 fade-in-up stagger-3">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="p-3 rounded-xl bg-[var(--accent-secondary)]/20">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-secondary)]">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs text-[var(--accent-primary)] bg-[var(--accent-primary)]/20 px-2 py-1 rounded-full">Available</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-[var(--text-primary)] mb-1" id="statDoctors">24</h3>
+                    <p class="text-sm text-[var(--text-muted)]">Doctors On Duty</p>
+                    <div class="mt-4 flex gap-1">
+                        <div class="flex-1 h-1 rounded-full bg-[var(--accent-primary)]"></div>
+                        <div class="flex-1 h-1 rounded-full bg-[var(--accent-primary)]"></div>
+                        <div class="flex-1 h-1 rounded-full bg-[var(--accent-warning)]"></div>
+                        <div class="flex-1 h-1 rounded-full bg-[var(--accent-danger)]"></div>
+                    </div>
+                </div>
+
+                <div class="card p-6 fade-in-up stagger-4">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="p-3 rounded-xl bg-[var(--accent-warning)]/20">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-warning)]">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs text-[var(--accent-danger)] bg-[var(--accent-danger)]/20 px-2 py-1 rounded-full">2 Critical</span>
+                    </div>
+                    <h3 class="text-3xl font-bold text-[var(--text-primary)] mb-1" id="statQueue">18</h3>
+                    <p class="text-sm text-[var(--text-muted)]">In Waiting Queue</p>
+                    <div class="mt-4 h-1 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
+                        <div class="h-full w-1/3 bg-gradient-to-r from-[var(--accent-warning)] to-[var(--accent-danger)] rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Left Column - AI Agent & Queue -->
+                <div class="xl:col-span-2 space-y-6">
+                    <!-- AI Agent Chat Panel -->
+                    <div class="card fade-in-up stagger-5">
+                        <div class="p-6 border-b border-[var(--border-color)]">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="relative">
+                                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--bg-primary)]">
+                                                <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                                                <circle cx="8" cy="14" r="1.5" fill="currentColor"/>
+                                                <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                        <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[var(--accent-primary)] border-2 border-[var(--bg-card)]"></div>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-[var(--text-primary)]">MediBot AI Assistant</h3>
+                                        <p class="text-xs text-[var(--accent-primary)]">Active - Handling 3 calls</p>
+                                    </div>
+                                </div>
+                                <div class="wave-container">
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="h-80 overflow-y-auto p-4 space-y-4" id="chatMessages">
+                            <!-- Messages will be inserted here -->
+                        </div>
+
+                        <div class="p-4 border-t border-[var(--border-color)]">
+                            <div class="flex gap-3">
+                                <input type="text" class="input-field flex-1" placeholder="Type a message or command..." id="chatInput" onkeypress="handleChatKeypress(event)">
+                                <button class="btn-primary px-6" onclick="sendMessage()" aria-label="Send Message">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"/>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button class="text-xs px-3 py-1.5 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 transition-all" onclick="quickCommand('book appointment')">Book Appointment</button>
+                                <button class="text-xs px-3 py-1.5 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 transition-all" onclick="quickCommand('check availability')">Check Availability</button>
+                                <button class="text-xs px-3 py-1.5 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/10 transition-all" onclick="quickCommand('emergency')">Emergency</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Patient Queue -->
+                    <div class="card fade-in-up stagger-6">
+                        <div class="p-6 border-b border-[var(--border-color)]">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-[var(--text-primary)]">Live Patient Queue</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-[var(--text-muted)]">Auto-refresh</span>
+                                    <div class="w-2 h-2 rounded-full bg-[var(--accent-primary)] animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divide-y divide-[var(--border-color)]" id="patientQueue">
+                            <!-- Queue items will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Doctors & Activity -->
+                <div class="space-y-6">
+                    <!-- Doctor Availability -->
+                    <div class="card fade-in-up stagger-5">
+                        <div class="p-6 border-b border-[var(--border-color)]">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-[var(--text-primary)]">Doctor Availability</h3>
+                                <button class="text-xs text-[var(--accent-primary)] hover:underline" onclick="switchSection('doctors')">View All</button>
+                            </div>
+                        </div>
+                        <div class="p-4 space-y-3" id="doctorList">
+                            <!-- Doctors will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Real-time Activity -->
+                    <div class="card fade-in-up stagger-6">
+                        <div class="p-6 border-b border-[var(--border-color)]">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-[var(--text-primary)]">Real-time Activity</h3>
+                                <div class="live-indicator text-xs font-semibold text-[var(--accent-danger)]">LIVE</div>
+                            </div>
+                        </div>
+                        <div class="p-4 space-y-4 max-h-80 overflow-y-auto" id="activityFeed">
+                            <!-- Activity items will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Incoming Calls -->
+                    <div class="card fade-in-up stagger-6 bg-gradient-to-br from-[var(--accent-info)]/10 to-[var(--accent-primary)]/10 border-[var(--accent-primary)]/30" id="incomingCallCard" style="display: none;">
+                        <div class="p-6 text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--accent-info)]/20 flex items-center justify-center animate-pulse">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-info)]">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-[var(--text-primary)] mb-1">Incoming Call</h3>
+                            <p class="text-sm text-[var(--text-muted)] mb-4" id="callerInfo">+91 98765 43210</p>
+                            <div class="flex gap-3 justify-center">
+                                <button class="px-6 py-3 rounded-xl bg-[var(--accent-danger)] text-white font-semibold hover:opacity-90 transition-opacity" onclick="rejectCall()">
+                                    Reject
+                                </button>
+                                <button class="px-6 py-3 rounded-xl bg-[var(--accent-primary)] text-[var(--bg-primary)] font-semibold hover:opacity-90 transition-opacity" onclick="acceptCall()">
+                                    Accept
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointments Section -->
+        <section id="section-appointments" class="p-6 hidden">
+            <div class="card p-6 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)]">Appointment Management</h3>
+                    <button class="btn-primary flex items-center gap-2" onclick="openBookingModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        New Appointment
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <select class="input-field w-auto" id="filterDepartment" onchange="filterAppointments()">
+                        <option value="">All Departments</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="neurology">Neurology</option>
+                        <option value="orthopedics">Orthopedics</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="general">General Medicine</option>
+                    </select>
+                    <select class="input-field w-auto" id="filterStatus" onchange="filterAppointments()">
+                        <option value="">All Status</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <input type="date" class="input-field w-auto" id="filterDate" onchange="filterAppointments()">
+                </div>
+
+                <!-- Appointments Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-sm text-[var(--text-muted)] border-b border-[var(--border-color)]">
+                                <th class="pb-4 font-medium">Patient</th>
+                                <th class="pb-4 font-medium">Doctor</th>
+                                <th class="pb-4 font-medium">Department</th>
+                                <th class="pb-4 font-medium">Time</th>
+                                <th class="pb-4 font-medium">Status</th>
+                                <th class="pb-4 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsTable">
+                            <!-- Appointments will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patients Section -->
+        <section id="section-patients" class="p-6 hidden">
+            <div class="card p-6 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)]">Patient Records</h3>
+                    <div class="flex gap-3">
+                        <input type="text" class="input-field w-64" placeholder="Search patients..." id="patientSearch" oninput="searchPatients(this.value)">
+                        <button class="btn-primary flex items-center gap-2" onclick="openPatientModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Patient
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="patientsGrid">
+                    <!-- Patients will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctors Section -->
+        <section id="section-doctors" class="p-6 hidden">
+            <div class="card p-6 fade-in-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)]">Doctor Management</h3>
+                    <button class="btn-primary flex items-center gap-2" onclick="openDoctorModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Doctor
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="doctorsGrid">
+                    <!-- Doctors will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Agent Section -->
+        <section id="section-ai-agent" class="p-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- AI Configuration -->
+                <div class="card p-6 fade-in-up">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)] mb-6">AI Agent Configuration</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Voice Mode</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="voiceMode" value="auto" checked class="w-4 h-4 accent-[var(--accent-primary)]">
+                                    <span class="text-sm text-[var(--text-primary)]">Auto Answer</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="voiceMode" value="manual" class="w-4 h-4 accent-[var(--accent-primary)]">
+                                    <span class="text-sm text-[var(--text-primary)]">Manual</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">AI Personality</label>
+                            <select class="input-field">
+                                <option value="professional">Professional</option>
+                                <option value="friendly">Friendly</option>
+                                <option value="empathetic">Empathetic</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Greeting Message</label>
+                            <textarea class="input-field h-24" placeholder="Enter default greeting message...">Hello! Welcome to MediCore Hospital. I am your AI assistant. How may I help you today?</textarea>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-[var(--bg-elevated)] rounded-xl">
+                            <div>
+                                <p class="font-medium text-[var(--text-primary)]">Appointment Auto-Booking</p>
+                                <p class="text-sm text-[var(--text-muted)]">Allow AI to book appointments automatically</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-[var(--bg-primary)] rounded-full peer peer-checked:bg-[var(--accent-primary)] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
+                        </div>
+
+                        <button class="btn-primary w-full">Save Configuration</button>
+                    </div>
+                </div>
+
+                <!-- AI Statistics -->
+                <div class="card p-6 fade-in-up stagger-2">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)] mb-6">AI Performance Today</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="p-4 bg-[var(--bg-elevated)] rounded-xl text-center">
+                            <p class="text-3xl font-bold text-[var(--accent-primary)]">156</p>
+                            <p class="text-sm text-[var(--text-muted)]">Calls Handled</p>
+                        </div>
+                        <div class="p-4 bg-[var(--bg-elevated)] rounded-xl text-center">
+                            <p class="text-3xl font-bold text-[var(--accent-info)]">43</p>
+                            <p class="text-sm text-[var(--text-muted)]">Appointments Booked</p>
+                        </div>
+                        <div class="p-4 bg-[var(--bg-elevated)] rounded-xl text-center">
+                            <p class="text-3xl font-bold text-[var(--accent-secondary)]">98.2%</p>
+                            <p class="text-sm text-[var(--text-muted)]">Success Rate</p>
+                        </div>
+                        <div class="p-4 bg-[var(--bg-elevated)] rounded-xl text-center">
+                            <p class="text-3xl font-bold text-[var(--accent-warning)]">1:24</p>
+                            <p class="text-sm text-[var(--text-muted)]">Avg Call Duration</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-medium text-[var(--text-primary)]">Recent AI Actions</h4>
+                        <div class="space-y-3" id="aiActions">
+                            <!-- AI actions will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call Logs Section -->
+        <section id="section-calls" class="p-6 hidden">
+            <div class="card p-6 fade-in-up">
+                <h3 class="text-xl font-bold text-[var(--text-primary)] mb-6">Call History</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-sm text-[var(--text-muted)] border-b border-[var(--border-color)]">
+                                <th class="pb-4 font-medium">Caller</th>
+                                <th class="pb-4 font-medium">Time</th>
+                                <th class="pb-4 font-medium">Duration</th>
+                                <th class="pb-4 font-medium">Type</th>
+                                <th class="pb-4 font-medium">Outcome</th>
+                                <th class="pb-4 font-medium">Recording</th>
+                            </tr>
+                        </thead>
+                        <tbody id="callLogsTable">
+                            <!-- Call logs will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="section-analytics" class="p-6 hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="card p-6 fade-in-up">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)] mb-6">Weekly Overview</h3>
+                    <div class="h-64 flex items-end justify-between gap-2" id="weeklyChart">
+                        <!-- Chart bars will be inserted here -->
+                    </div>
+                    <div class="flex justify-between mt-4 text-xs text-[var(--text-muted)]">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+                </div>
+
+                <div class="card p-6 fade-in-up stagger-2">
+                    <h3 class="text-xl font-bold text-[var(--text-primary)] mb-6">Department Distribution</h3>
+                    <div class="space-y-4" id="departmentStats">
+                        <!-- Department stats will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-content max-w-lg">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-[var(--text-primary)]">Book Appointment</h3>
+                <button class="p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors" onclick="closeModal('bookingModal')" aria-label="Close Modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--text-muted)]">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Patient Name</label>
+                        <input type="text" class="input-field" placeholder="Enter patient name" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Phone Number</label>
+                        <input type="tel" class="input-field" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Department</label>
+                            <select class="input-field" required>
+                                <option value="">Select</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="neurology">Neurology</option>
+                                <option value="orthopedics">Orthopedics</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="general">General Medicine</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Doctor</label>
+                            <select class="input-field" id="doctorSelect" required>
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Date</label>
+                            <input type="date" class="input-field" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Time Slot</label>
+                            <select class="input-field" required>
+                                <option value="">Select</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="09:30">09:30 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="10:30">10:30 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="11:30">11:30 AM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="14:30">02:30 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="15:30">03:30 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-[var(--text-secondary)] mb-2">Reason for Visit</label>
+                        <textarea class="input-field h-20" placeholder="Brief description of symptoms..."></textarea>
+                    </div>
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button type="button" class="flex-1 px-6 py-3 rounded-xl border border-[var(--border-color)] text-[var(--text-secondary)] hover:bg-[var(--bg-elevated)] transition-colors" onclick="closeModal('bookingModal')">Cancel</button>
+                    <button type="submit" class="flex-1 btn-primary">Book Appointment</button>
+                </div>
+            </form>
         </div>
     </div>
 
-    <!-- Cyber Background -->
-    <canvas class="cyber-bg" id="cyberBg"></canvas>
-    <div class="cyber-animation" id="cyberAnimation"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-shield-halved"></i>
-                YASH GAUTAM
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Notification Panel -->
+    <div class="fixed top-20 right-6 w-80 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl shadow-2xl z-50 hidden" id="notificationPanel">
+        <div class="p-4 border-b border-[var(--border-color)]">
+            <div class="flex items-center justify-between">
+                <h4 class="font-semibold text-[var(--text-primary)]">Notifications</h4>
+                <button class="text-xs text-[var(--accent-primary)] hover:underline" onclick="clearNotifications()">Clear All</button>
             </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="cyber-grid"></div>
-        <div class="particles" id="heroParticles"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="greeting">Hello, I'm</p>
-                <h1>Yash Gautam</h1>
-                <p class="role">Security Engineer</p>
-                <p class="description">
-                    Results-driven Cybersecurity Engineer with extensive experience in penetration testing, 
-                    vulnerability management, threat detection, and securing mobile & web applications. 
-                    Passionate about protecting digital assets and staying ahead of emerging threats.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn">Hire Me</a>
-                    <a href="#projects" class="btn btn-secondary">View Projects</a>
-                </div>
-                <div class="social-links">
-                    <a href="tel:9982784026" target="_blank"><i class="fas fa-phone"></i></a>
-                    <a href="mailto:yashsh9982@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com/in/yash-gautam-a75925227" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://GenieAi.IO" target="_blank"><i class="fas fa-globe"></i></a>
-                    <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="profile-container">
-                    <div class="profile-border"></div>
-                    <div class="profile-image">
-                        <img src="https://drive.google.com/uc?export=view&id=1JKTGP-ZPI3GOWUoO0vvSu_wUS4GczAlh" alt="Yash Gautam">
-                    </div>
-                </div>
-            </div>
+        <div class="max-h-80 overflow-y-auto" id="notificationList">
+            <!-- Notifications will be inserted here -->
         </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>About Me</h2>
-                <p>Get to know more about my background and expertise</p>
+    <!-- Emergency Modal -->
+    <div class="modal-overlay" id="emergencyModal">
+        <div class="modal-content text-center">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--accent-danger)]/20 flex items-center justify-center animate-pulse">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-danger)]">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
             </div>
-            <div class="about-content">
-                <div class="about-text fade-in">
-                    <p>
-                        I am a dedicated Security Engineer with a strong foundation in cybersecurity principles 
-                        and practical experience in protecting digital infrastructures. My journey in cybersecurity 
-                        began during my academic years and has evolved through hands-on roles in penetration testing, 
-                        security operations, and vulnerability management.
-                    </p>
-                    <p>
-                        Currently working at Genie AI, I monitor critical infrastructure, manage security tools 
-                        including WAF and SIEM systems, and conduct comprehensive risk assessments. My approach 
-                        combines technical expertise with strategic thinking to identify and mitigate security 
-                        threats before they impact operations.
-                    </p>
-                    <p>
-                        I'm passionate about continuous learning and actively pursuing advanced certifications 
-                        to stay at the forefront of cybersecurity. My expertise spans across penetration testing, 
-                        threat detection, compliance frameworks, and security automation.
-                    </p>
-                </div>
-                <div class="about-skills fade-in">
-                    <div class="skill-category flow-container">
-                        <h3><i class="fas fa-user-shield"></i> Core Expertise</h3>
-                        <ul>
-                            <li>Penetration Testing</li>
-                            <li>Vulnerability Management</li>
-                            <li>Threat Detection</li>
-                            <li>Security Operations</li>
-                            <li>Risk Assessment</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category flow-container">
-                        <h3><i class="fas fa-certificate"></i> Compliance</h3>
-                        <ul>
-                            <li>PCI-DSS</li>
-                            <li>NIST Framework</li>
-                            <li>ISO 27001</li>
-                            <li>Security Audits</li>
-                            <li>Policy Development</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category flow-container">
-                        <h3><i class="fas fa-code"></i> Development</h3>
-                        <ul>
-                            <li>Python Scripting</li>
-                            <li>Bash Automation</li>
-                            <li>Security Tools</li>
-                            <li>API Security</li>
-                            <li>Code Review</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category flow-container">
-                        <h3><i class="fas fa-network-wired"></i> Infrastructure</h3>
-                        <ul>
-                            <li>Network Security</li>
-                            <li>Cloud Security (AWS/Azure)</li>
-                            <li>Linux Administration</li>
-                            <li>WAF Management</li>
-                            <li>SIEM Operations</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <h3 class="text-2xl font-bold text-[var(--accent-danger)] mb-2">Emergency Alert</h3>
+            <p class="text-[var(--text-muted)] mb-6">Emergency protocol has been activated. All available staff will be notified.</p>
+            <button class="btn-primary w-full" onclick="closeModal('emergencyModal')">Acknowledge</button>
         </div>
-    </section>
-
-    <!-- Experience Section -->
-    <section class="section" id="experience">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Work Experience</h2>
-                <p>My professional journey in cybersecurity</p>
-            </div>
-            <div class="experience-timeline">
-                <div class="experience-item fade-in flow-container">
-                    <div class="experience-header">
-                        <div>
-                            <h3>Security Engineer</h3>
-                            <p class="company">Genie AI - Remote Canada</p>
-                        </div>
-                        <span class="duration">Dec 2023 - Present</span>
-                    </div>
-                    <div class="experience-description">
-                        <ul>
-                            <li>Daily monitoring of infrastructure and critical security alerts across distributed systems</li>
-                            <li>Managed and configured security tools including WAF, proxy servers, and Linux systems</li>
-                            <li>Conducted comprehensive risk management, assessment, and mitigation strategies</li>
-                            <li>Performed system health checks and SIEM uptime monitoring to ensure 99.9% availability</li>
-                            <li>Monitored security dashboards for attacks, anomalies, and suspicious activities</li>
-                            <li>Generated and shared detailed security reports with clients and stakeholders</li>
-                            <li>Implemented password management best practices across the organization</li>
-                            <li>Enhanced SIEM use cases for real-time threat detection and automated response</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-item fade-in flow-container">
-                    <div class="experience-header">
-                        <div>
-                            <h3>Penetration Testing Intern</h3>
-                            <p class="company">Treacle Technologies - Remote</p>
-                        </div>
-                        <span class="duration">Jan 2023 - Dec 2023</span>
-                    </div>
-                    <div class="experience-description">
-                        <ul>
-                            <li>Conducted penetration testing on Android applications identifying critical vulnerabilities</li>
-                            <li>Performed web application security assessments using OWASP methodology</li>
-                            <li>Created detailed remediation reports with actionable security recommendations</li>
-                            <li>Collaborated with senior security engineers on comprehensive security audits</li>
-                            <li>Assisted in developing security testing frameworks and automation scripts</li>
-                            <li>Participated in security code reviews and vulnerability assessments</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="experience-item fade-in flow-container">
-                    <div class="experience-header">
-                        <div>
-                            <h3>Intern - Image Processing & Automation</h3>
-                            <p class="company">Botosynthesis.ai - Remote</p>
-                        </div>
-                        <span class="duration">Jan 2022 - Dec 2022</span>
-                    </div>
-                    <div class="experience-description">
-                        <ul>
-                            <li>Developed image-processing-based automation solutions using Python</li>
-                            <li>Improved algorithms for enhanced security and operational efficiency</li>
-                            <li>Implemented automated testing frameworks for quality assurance</li>
-                            <li>Worked on machine learning models for security threat detection</li>
-                            <li>Contributed to optimizing system performance and resource utilization</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="section" id="education">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Education</h2>
-                <p>My academic background in cybersecurity</p>
-            </div>
-            <div class="education-card fade-in glow-border">
-                <h3>BCA in Cyber Security</h3>
-                <p class="institution">JECRC University</p>
-                <p class="duration">Apr 2022 - Jun 2024</p>
-                <div class="coursework">
-                    <h4>Key Coursework:</h4>
-                    <div class="coursework-tags">
-                        <span>Network Security</span>
-                        <span>Ethical Hacking</span>
-                        <span>Cryptography</span>
-                        <span>Risk Management</span>
-                        <span>Systems Security</span>
-                        <span>VAPT</span>
-                        <span>Digital Forensics</span>
-                        <span>Security Architecture</span>
-                        <span>Incident Response</span>
-                        <span>Malware Analysis</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section" id="skills">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Technical Skills</h2>
-                <p>Technologies and tools I work with</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-bug"></i> Security Testing</h3>
-                    <div class="skill-items">
-                        <span>Ethical Hacking</span>
-                        <span>VA/PT</span>
-                        <span>Security Audits</span>
-                        <span>OWASP Top 10</span>
-                        <span>Mobile Security</span>
-                        <span>Web Security</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-network-wired"></i> Network Security</h3>
-                    <div class="skill-items">
-                        <span>Firewall</span>
-                        <span>VPN</span>
-                        <span>IDS/IPS</span>
-                        <span>TCP/IP</span>
-                        <span>DNS Security</span>
-                        <span>NAT</span>
-                        <span>HTTP/HTTPS</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-tools"></i> Security Tools</h3>
-                    <div class="skill-items">
-                        <span>Kali Linux</span>
-                        <span>Wireshark</span>
-                        <span>Burp Suite</span>
-                        <span>Nmap</span>
-                        <span>Metasploit</span>
-                        <span>Nessus</span>
-                        <span>Snort</span>
-                        <span>SIEM</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-shield-alt"></i> Compliance</h3>
-                    <div class="skill-items">
-                        <span>PCI-DSS</span>
-                        <span>NIST</span>
-                        <span>ISO 27001</span>
-                        <span>GDPR</span>
-                        <span>Risk Assessment</span>
-                        <span>Audit</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skill-items">
-                        <span>Python</span>
-                        <span>Bash</span>
-                        <span>PowerShell</span>
-                        <span>JavaScript</span>
-                        <span>SQL</span>
-                        <span>API Security</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-laptop-code"></i> Operating Systems</h3>
-                    <div class="skill-items">
-                        <span>Windows</span>
-                        <span>Kali Linux</span>
-                        <span>Ubuntu</span>
-                        <span>Parrot OS</span>
-                        <span>CentOS</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-cloud"></i> Cloud Security</h3>
-                    <div class="skill-items">
-                        <span>AWS Security</span>
-                        <span>Azure Security</span>
-                        <span>Cloud Compliance</span>
-                        <span>IAM</span>
-                        <span>Container Security</span>
-                    </div>
-                </div>
-
-                <div class="skill-card fade-in glow-border">
-                    <h3><i class="fas fa-lock"></i> Cryptography</h3>
-                    <div class="skill-items">
-                        <span>Encryption</span>
-                        <span>PKI</span>
-                        <span>SSL/TLS</span>
-                        <span>Hashing</span>
-                        <span>Digital Signatures</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section class="section" id="certifications">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Certifications</h2>
-                <p>Professional credentials and achievements</p>
-            </div>
-            <div class="certifications-grid">
-                <div class="cert-card fade-in glow-border" data-cert="ceh">
-                    <div class="cert-icon">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>CEH</h3>
-                    <p>Certified Ethical Hacker</p>
-                    <p>EC-Council</p>
-                </div>
-
-                <div class="cert-card fade-in glow-border" data-cert="cnd">
-                    <div class="cert-icon">
-                        <i class="fas fa-shield-virus"></i>
-                    </div>
-                    <h3>CND</h3>
-                    <p>Certified Network Defender</p>
-                    <p>EC-Council</p>
-                </div>
-
-                <div class="cert-card fade-in glow-border" data-cert="ecss">
-                    <div class="cert-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <h3>ECSS</h3>
-                    <p>Security Specialist</p>
-                    <p>EC-Council</p>
-                </div>
-
-                <div class="cert-card fade-in glow-border" data-cert="networking">
-                    <div class="cert-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3>Networking Essentials</h3>
-                    <p>Cisco Certification</p>
-                    <p>Cisco</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="section" id="projects">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Projects</h2>
-                <p>Key security projects and assessments</p>
-            </div>
-            <div class="projects-container">
-                <div class="project-card fade-in glow-border">
-                    <div class="project-image">
-                        <img src="https://drive.google.com/uc?export=view&id=1mJCf2kkpB2l40zvZsrdgDGGpYnFa92zk" alt="Cybersecurity Learning Platform - PCI DSS Audit">
-                    </div>
-                    <div class="project-content">
-                        <h3>Cybersecurity Learning Platform - PCI DSS Audit</h3>
-                        <p>
-                            This project involved conducting a comprehensive PCI DSS compliance audit for a cybersecurity learning platform that handles payment card information. The audit process included:
-                        </p>
-                        <ul>
-                            <li>Performing a detailed gap analysis against all 12 PCI DSS requirements</li>
-                            <li>Identifying non-compliant areas in cardholder data environment</li>
-                            <li>Evaluating encryption methods for data at rest and in transit</li>
-                            <li>Assessing access control mechanisms and authentication protocols</li>
-                            <li>Reviewing network segmentation and firewall configurations</li>
-                            <li>Testing security monitoring and incident response capabilities</li>
-                            <li>Validating security policies, procedures, and documentation</li>
-                        </ul>
-                        <p>
-                            The deliverables included a comprehensive audit report with prioritized remediation recommendations, a detailed implementation roadmap, and security policy templates to help the organization achieve full PCI DSS compliance. This project reduced the platform's security risk by 78% and prepared it for formal compliance certification.
-                        </p>
-                        <div class="project-tags">
-                            <span>PCI-DSS</span>
-                            <span>Compliance Audit</span>
-                            <span>Risk Assessment</span>
-                            <span>Security Documentation</span>
-                            <span>Gap Analysis</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#contact"><i class="fas fa-info-circle"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in glow-border">
-                    <div class="project-image">
-                        <img src="https://drive.google.com/uc?export=view&id=1TyVU-2x1CxnopM_42OIxCFUFG76tHHDj" alt="Currency Exchange Platform - Network Penetration Test">
-                    </div>
-                    <div class="project-content">
-                        <h3>Currency Exchange Platform - Network Penetration Test</h3>
-                        <p>
-                            This comprehensive penetration testing engagement focused on identifying and exploiting vulnerabilities in a currency exchange platform's corporate network infrastructure. The assessment methodology included:
-                        </p>
-                        <ul>
-                            <li>Information gathering using OSINT techniques and reconnaissance tools</li>
-                            <li>Network scanning and service enumeration using Nmap and specialized tools</li>
-                            <li>Vulnerability assessment with Nessus and custom scripts</li>
-                            <li>Exploitation of identified vulnerabilities using Metasploit and manual techniques</li>
-                            <li>Privilege escalation attempts on compromised systems</li>
-                            <li>Lateral movement testing to evaluate network segmentation effectiveness</li>
-                            <li>Post-exploitation activities to assess potential data exposure</li>
-                        </ul>
-                        <p>
-                            The engagement identified 23 critical vulnerabilities, including unpatched systems, weak authentication mechanisms, and inadequate network segmentation. The final deliverable was a detailed report with step-by-step exploitation demonstrations, risk ratings for each finding, and prioritized remediation recommendations. Following implementation of our recommendations, the platform's security posture improved by 85%, with all critical vulnerabilities addressed within 30 days.
-                        </p>
-                        <div class="project-tags">
-                            <span>Penetration Testing</span>
-                            <span>Network Security</span>
-                            <span>Kali Linux</span>
-                            <span>Metasploit</span>
-                            <span>Vulnerability Assessment</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#contact"><i class="fas fa-info-circle"></i> Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Get In Touch</h2>
-                <p>Let's discuss your security needs</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item fade-in glow-border">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p><a href="tel:9982784026">+91 9982784026</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item fade-in glow-border">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p><a href="mailto:yashsh9982@gmail.com">yashsh9982@gmail.com</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item fade-in glow-border">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>Jaipur, India</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item fade-in glow-border">
-                        <div class="contact-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Website</h3>
-                            <p><a href="https://GenieAi.IO" target="_blank">GenieAi.IO</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form fade-in glow-border">
-                    <h3 style="color: var(--primary-color); margin-bottom: 2rem;">Send a Message</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-social">
-                <a href="tel:9982784026"><i class="fas fa-phone"></i></a>
-                <a href="mailto:yashsh9982@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="https://linkedin.com/in/yash-gautam-a75925227" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://GenieAi.IO" target="_blank"><i class="fas fa-globe"></i></a>
-                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-            <div class="footer-text">
-                <p>&copy; 2024 Yash Gautam. All Rights Reserved.</p>
-                <p>Security Engineer | Penetration Tester | Threat Hunter</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
-
-    <!-- Certificate Modal -->
-    <div id="certModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="certImage">
     </div>
 
     <script>
-        // =====================
-        // LOADER
-        // =====================
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 1500);
+        // ========== DATA ==========
+        const doctors = [
+            { id: 1, name: 'Dr. Rajesh Kumar', department: 'Cardiology', status: 'available', patients: 12, nextSlot: '10:30 AM', avatar: 'RK' },
+            { id: 2, name: 'Dr. Priya Singh', department: 'Neurology', status: 'busy', patients: 8, nextSlot: '11:00 AM', avatar: 'PS' },
+            { id: 3, name: 'Dr. Amit Sharma', department: 'Orthopedics', status: 'available', patients: 15, nextSlot: '10:00 AM', avatar: 'AS' },
+            { id: 4, name: 'Dr. Neha Gupta', department: 'Pediatrics', status: 'available', patients: 20, nextSlot: '10:45 AM', avatar: 'NG' },
+            { id: 5, name: 'Dr. Vikram Patel', department: 'General Medicine', status: 'offline', patients: 6, nextSlot: 'N/A', avatar: 'VP' },
+            { id: 6, name: 'Dr. Sunita Rao', department: 'Cardiology', status: 'busy', patients: 10, nextSlot: '11:30 AM', avatar: 'SR' },
+        ];
+
+        const patients = [
+            { id: 1, name: 'Ramesh Verma', age: 45, phone: '+91 98765 43210', condition: 'Chest Pain', doctor: 'Dr. Rajesh Kumar', status: 'waiting', waitTime: 15, token: 'A001' },
+            { id: 2, name: 'Anita Devi', age: 32, phone: '+91 87654 32109', condition: 'Headache', doctor: 'Dr. Priya Singh', status: 'in-consultation', waitTime: 0, token: 'A002' },
+            { id: 3, name: 'Sunil Kumar', age: 28, phone: '+91 76543 21098', condition: 'Back Pain', doctor: 'Dr. Amit Sharma', status: 'waiting', waitTime: 25, token: 'A003' },
+            { id: 4, name: 'Baby Kavya', age: 5, phone: '+91 65432 10987', condition: 'Fever', doctor: 'Dr. Neha Gupta', status: 'waiting', waitTime: 10, token: 'A004' },
+            { id: 5, name: 'Mohan Lal', age: 55, phone: '+91 54321 09876', condition: 'Diabetes Checkup', doctor: 'Dr. Vikram Patel', status: 'checked-in', waitTime: 5, token: 'A005' },
+            { id: 6, name: 'Kavita Sharma', age: 40, phone: '+91 43210 98765', condition: 'Heart Checkup', doctor: 'Dr. Sunita Rao', status: 'waiting', waitTime: 30, token: 'A006' },
+        ];
+
+        const appointments = [
+            { id: 1, patient: 'Ramesh Verma', doctor: 'Dr. Rajesh Kumar', department: 'Cardiology', time: '09:30 AM', status: 'confirmed' },
+            { id: 2, patient: 'Anita Devi', doctor: 'Dr. Priya Singh', department: 'Neurology', time: '10:00 AM', status: 'in-progress' },
+            { id: 3, patient: 'Sunil Kumar', doctor: 'Dr. Amit Sharma', department: 'Orthopedics', time: '10:30 AM', status: 'scheduled' },
+            { id: 4, patient: 'Baby Kavya', doctor: 'Dr. Neha Gupta', department: 'Pediatrics', time: '11:00 AM', status: 'scheduled' },
+            { id: 5, patient: 'Mohan Lal', doctor: 'Dr. Vikram Patel', department: 'General', time: '11:30 AM', status: 'cancelled' },
+            { id: 6, patient: 'Kavita Sharma', doctor: 'Dr. Sunita Rao', department: 'Cardiology', time: '02:00 PM', status: 'confirmed' },
+        ];
+
+        const callLogs = [
+            { id: 1, caller: '+91 98765 43210', time: '09:15 AM', duration: '2:34', type: 'inbound', outcome: 'Appointment Booked' },
+            { id: 2, caller: '+91 87654 32109', time: '09:45 AM', duration: '1:12', type: 'outbound', outcome: 'Reminder Sent' },
+            { id: 3, caller: '+91 76543 21098', time: '10:00 AM', duration: '3:45', type: 'inbound', outcome: 'Query Resolved' },
+            { id: 4, caller: '+91 65432 10987', time: '10:20 AM', duration: '0:45', type: 'missed', outcome: 'Callback Required' },
+        ];
+
+        const notifications = [
+            { id: 1, type: 'appointment', message: 'New appointment booked with Dr. Rajesh Kumar', time: '2 min ago' },
+            { id: 2, type: 'emergency', message: 'Emergency case incoming - ETA 5 minutes', time: '5 min ago' },
+            { id: 3, type: 'reminder', message: 'Dr. Priya Singh\'s lunch break at 1 PM', time: '15 min ago' },
+            { id: 4, type: 'system', message: 'AI agent handled 10 calls successfully', time: '30 min ago' },
+            { id: 5, type: 'patient', message: 'Patient token A003 waiting for 20+ minutes', time: '45 min ago' },
+        ];
+
+        const aiActions = [
+            { action: 'Booked appointment for Ramesh Verma', time: '2 min ago', success: true },
+            { action: 'Checked doctor availability - Cardiology', time: '5 min ago', success: true },
+            { action: 'Sent appointment reminder to 5 patients', time: '10 min ago', success: true },
+            { action: 'Transferred emergency call to desk', time: '15 min ago', success: true },
+            { action: 'Updated patient records', time: '20 min ago', success: true },
+        ];
+
+        const chatHistory = [
+            { sender: 'ai', message: 'Hello! I am MediBot, your AI assistant. I can help you book appointments, check doctor availability, and manage patient queries. How can I assist you today?' }
+        ];
+
+        const weeklyData = [
+            { day: 'Mon', patients: 180, appointments: 65 },
+            { day: 'Tue', patients: 220, appointments: 78 },
+            { day: 'Wed', patients: 195, appointments: 72 },
+            { day: 'Thu', patients: 247, appointments: 89 },
+            { day: 'Fri', patients: 210, appointments: 75 },
+            { day: 'Sat', patients: 150, appointments: 45 },
+            { day: 'Sun', patients: 85, appointments: 25 },
+        ];
+
+        const departmentData = [
+            { name: 'Cardiology', patients: 45, color: '#00d4aa' },
+            { name: 'Neurology', patients: 32, color: '#3b82f6' },
+            { name: 'Orthopedics', patients: 28, color: '#f59e0b' },
+            { name: 'Pediatrics', patients: 52, color: '#ec4899' },
+            { name: 'General Medicine', patients: 38, color: '#8b5cf6' },
+        ];
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDashboard();
+            updateTime();
+            setInterval(updateTime, 1000);
+            setInterval(simulateRealTimeUpdates, 5000);
+            renderChatMessages();
         });
 
-        // =====================
-        // CUSTOM CURSOR
-        // =====================
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+        function initializeDashboard() {
+            renderPatientQueue();
+            renderDoctorList();
+            renderActivityFeed();
+            renderAppointmentsTable();
+            renderPatientsGrid();
+            renderDoctorsGrid();
+            renderCallLogs();
+            renderNotifications();
+            renderAIActions();
+            renderWeeklyChart();
+            renderDepartmentStats();
+            populateDoctorSelect();
             
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-
-        document.addEventListener('mousedown', () => {
-            cursor.classList.add('cursor-grow');
-        });
-
-        document.addEventListener('mouseup', () => {
-            cursor.classList.remove('cursor-grow');
-        });
-
-        // Hide cursor on mobile
-        if (window.innerWidth <= 768) {
-            cursor.style.display = 'none';
-            cursorFollower.style.display = 'none';
-            document.body.style.cursor = 'auto';
+            // Simulate incoming call after 10 seconds
+            setTimeout(simulateIncomingCall, 10000);
         }
 
-        // =====================
-        // CYBER BACKGROUND
-        // =====================
-        const canvas = document.getElementById('cyberBg');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-        const matrixArray = matrix.split("");
-
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-
-        const drops = [];
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
+        // ========== TIME UPDATE ==========
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('currentTime').textContent = now.toLocaleDateString('en-IN', options);
         }
 
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(5, 8, 16, 0.04)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00d4ff';
-            ctx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < drops.length; i++) {
-                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
+        // ========== SECTION SWITCHING ==========
+        function switchSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('[id^="section-"]').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(`section-${sectionId}`);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+            
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === sectionId) {
+                    item.classList.add('active');
                 }
-                drops[i]++;
+            });
+            
+            // Update title
+            const titles = {
+                'dashboard': 'Dashboard Overview',
+                'appointments': 'Appointment Management',
+                'patients': 'Patient Records',
+                'doctors': 'Doctor Management',
+                'ai-agent': 'AI Agent Configuration',
+                'calls': 'Call History',
+                'analytics': 'Analytics & Reports'
+            };
+            document.getElementById('sectionTitle').textContent = titles[sectionId] || 'Dashboard';
+        }
+
+        // ========== SIDEBAR TOGGLE ==========
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // ========== RENDER FUNCTIONS ==========
+        function renderPatientQueue() {
+            const container = document.getElementById('patientQueue');
+            container.innerHTML = patients.map(patient => `
+                <div class="queue-item p-4 flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--accent-info)] to-[var(--accent-primary)] flex items-center justify-center font-bold text-sm text-[var(--bg-primary)]">
+                        ${patient.token}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-medium text-[var(--text-primary)]">${patient.name}</h4>
+                            <span class="text-xs px-2 py-0.5 rounded-full ${getStatusClass(patient.status)}">${formatStatus(patient.status)}</span>
+                        </div>
+                        <p class="text-sm text-[var(--text-muted)]">${patient.condition} - ${patient.doctor}</p>
+                    </div>
+                    <div class="text-right">
+                        ${patient.status === 'waiting' ? `
+                            <p class="text-sm font-medium text-[var(--accent-warning)]">${patient.waitTime} min</p>
+                            <p class="text-xs text-[var(--text-muted)]">wait time</p>
+                        ` : patient.status === 'in-consultation' ? `
+                            <p class="text-sm font-medium text-[var(--accent-primary)]">In Progress</p>
+                        ` : `
+                            <p class="text-sm font-medium text-[var(--accent-info)]">Checked In</p>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDoctorList() {
+            const container = document.getElementById('doctorList');
+            container.innerHTML = doctors.slice(0, 4).map(doctor => `
+                <div class="doctor-card p-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-color)]">
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center font-bold text-sm text-[var(--bg-primary)]">
+                                ${doctor.avatar}
+                            </div>
+                            <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-[var(--bg-elevated)] status-${doctor.status}"></div>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-medium text-[var(--text-primary)] text-sm">${doctor.name}</h4>
+                            <p class="text-xs text-[var(--text-muted)]">${doctor.department}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs font-medium text-[var(--accent-primary)]">${doctor.nextSlot}</p>
+                            <p class="text-xs text-[var(--text-muted)]">${doctor.patients} patients</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderActivityFeed() {
+            const activities = [
+                { type: 'appointment', text: 'New appointment booked: Ramesh Verma with Dr. Rajesh Kumar', time: '2 min ago' },
+                { type: 'call', text: 'Incoming call from +91 98765 43210 - Appointment inquiry', time: '5 min ago' },
+                { type: 'patient', text: 'Patient token A002 started consultation', time: '8 min ago' },
+                { type: 'system', text: 'AI Agent successfully handled 3 consecutive calls', time: '12 min ago' },
+                { type: 'alert', text: 'Dr. Vikram Patel marked as offline', time: '15 min ago' },
+            ];
+
+            const container = document.getElementById('activityFeed');
+            container.innerHTML = activities.map(activity => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div>
+                        <p class="text-sm text-[var(--text-primary)]">${activity.text}</p>
+                        <p class="text-xs text-[var(--text-muted)] mt-1">${activity.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAppointmentsTable() {
+            const container = document.getElementById('appointmentsTable');
+            container.innerHTML = appointments.map(apt => `
+                <tr class="border-b border-[var(--border-color)] hover:bg-[var(--bg-elevated)] transition-colors">
+                    <td class="py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-[var(--accent-primary)]/20 flex items-center justify-center text-sm font-medium text-[var(--accent-primary)]">
+                                ${apt.patient.split(' ').map(n => n[0]).join('')}
+                            </div>
+                            <span class="text-[var(--text-primary)]">${apt.patient}</span>
+                        </div>
+                    </td>
+                    <td class="py-4 text-[var(--text-secondary)]">${apt.doctor}</td>
+                    <td class="py-4 text-[var(--text-secondary)]">${apt.department}</td>
+                    <td class="py-4 text-[var(--text-secondary)]">${apt.time}</td>
+                    <td class="py-4">
+                        <span class="text-xs px-3 py-1 rounded-full ${getAppointmentStatusClass(apt.status)}">${apt.status}</span>
+                    </td>
+                    <td class="py-4">
+                        <div class="flex gap-2">
+                            <button class="p-2 rounded-lg hover:bg-[var(--bg-card)] transition-colors" aria-label="Edit">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--text-muted)]">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                            </button>
+                            <button class="p-2 rounded-lg hover:bg-[var(--accent-danger)]/20 transition-colors" aria-label="Delete">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-danger)]">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderPatientsGrid() {
+            const container = document.getElementById('patientsGrid');
+            container.innerHTML = patients.map(patient => `
+                <div class="p-4 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-all cursor-pointer">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-info)] to-[var(--accent-primary)] flex items-center justify-center font-bold text-[var(--bg-primary)]">
+                            ${patient.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-full ${getStatusClass(patient.status)}">${formatStatus(patient.status)}</span>
+                    </div>
+                    <h4 class="font-semibold text-[var(--text-primary)] mb-1">${patient.name}</h4>
+                    <p class="text-sm text-[var(--text-muted)] mb-2">Age: ${patient.age} | Token: ${patient.token}</p>
+                    <p class="text-sm text-[var(--text-secondary)]">${patient.condition}</p>
+                    <div class="mt-3 pt-3 border-t border-[var(--border-color)] flex items-center justify-between">
+                        <span class="text-xs text-[var(--text-muted)]">${patient.phone}</span>
+                        <button class="text-xs text-[var(--accent-primary)] hover:underline">View Details</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDoctorsGrid() {
+            const container = document.getElementById('doctorsGrid');
+            container.innerHTML = doctors.map(doctor => `
+                <div class="p-4 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-all cursor-pointer">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="relative">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-secondary)] flex items-center justify-center font-bold text-lg text-[var(--bg-primary)]">
+                                ${doctor.avatar}
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-[var(--bg-elevated)] status-${doctor.status}"></div>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-full ${getDoctorStatusClass(doctor.status)}">${doctor.status}</span>
+                    </div>
+                    <h4 class="font-semibold text-[var(--text-primary)] mb-1">${doctor.name}</h4>
+                    <p class="text-sm text-[var(--accent-primary)] mb-2">${doctor.department}</p>
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-[var(--text-muted)]">${doctor.patients} patients today</span>
+                        <span class="text-[var(--text-secondary)]">Next: ${doctor.nextSlot}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCallLogs() {
+            const container = document.getElementById('callLogsTable');
+            container.innerHTML = callLogs.map(call => `
+                <tr class="border-b border-[var(--border-color)] hover:bg-[var(--bg-elevated)] transition-colors">
+                    <td class="py-4 text-[var(--text-primary)]">${call.caller}</td>
+                    <td class="py-4 text-[var(--text-secondary)]">${call.time}</td>
+                    <td class="py-4 text-[var(--text-secondary)]">${call.duration}</td>
+                    <td class="py-4">
+                        <span class="text-xs px-3 py-1 rounded-full ${getCallTypeClass(call.type)}">${call.type}</span>
+                    </td>
+                    <td class="py-4 text-[var(--text-secondary)]">${call.outcome}</td>
+                    <td class="py-4">
+                        <button class="p-2 rounded-lg hover:bg-[var(--bg-card)] transition-colors" aria-label="Play Recording">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-primary)]">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderNotifications() {
+            const container = document.getElementById('notificationList');
+            container.innerHTML = notifications.map(notif => `
+                <div class="p-4 border-b border-[var(--border-color)] hover:bg-[var(--bg-elevated)] transition-colors cursor-pointer">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg ${getNotificationIconClass(notif.type)} flex items-center justify-center">
+                            ${getNotificationIcon(notif.type)}
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm text-[var(--text-primary)]">${notif.message}</p>
+                            <p class="text-xs text-[var(--text-muted)] mt-1">${notif.time}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAIActions() {
+            const container = document.getElementById('aiActions');
+            container.innerHTML = aiActions.map(action => `
+                <div class="flex items-center gap-3 p-3 rounded-xl bg-[var(--bg-elevated)]">
+                    <div class="w-8 h-8 rounded-full ${action.success ? 'bg-[var(--accent-primary)]/20' : 'bg-[var(--accent-danger)]/20'} flex items-center justify-center">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="${action.success ? 'text-[var(--accent-primary)]' : 'text-[var(--accent-danger)]'}">
+                            ${action.success ? '<polyline points="20 6 9 17 4 12"/>' : '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-[var(--text-primary)]">${action.action}</p>
+                        <p class="text-xs text-[var(--text-muted)]">${action.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderWeeklyChart() {
+            const container = document.getElementById('weeklyChart');
+            const maxValue = Math.max(...weeklyData.map(d => d.patients));
+            container.innerHTML = weeklyData.map((day, index) => `
+                <div class="flex-1 flex flex-col items-center gap-2">
+                    <div class="w-full rounded-t-lg bg-gradient-to-t from-[var(--accent-primary)] to-[var(--accent-secondary)] transition-all duration-500" style="height: ${(day.patients / maxValue) * 100}%; animation: growUp 1s ease forwards; animation-delay: ${index * 0.1}s;"></div>
+                    <span class="text-xs font-medium text-[var(--text-secondary)]">${day.patients}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderDepartmentStats() {
+            const container = document.getElementById('departmentStats');
+            const maxPatients = Math.max(...departmentData.map(d => d.patients));
+            container.innerHTML = departmentData.map(dept => `
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-[var(--text-primary)]">${dept.name}</span>
+                        <span class="text-sm font-medium text-[var(--text-secondary)]">${dept.patients} patients</span>
+                    </div>
+                    <div class="h-2 bg-[var(--bg-elevated)] rounded-full overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-1000" style="width: ${(dept.patients / maxPatients) * 100}%; background: ${dept.color};"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = chatHistory.map(msg => `
+                <div class="flex ${msg.sender === 'ai' ? 'justify-start' : 'justify-end'}">
+                    <div class="${msg.sender === 'ai' ? 'bg-[var(--bg-elevated)]' : 'bg-[var(--accent-primary)]'} rounded-2xl px-4 py-3 max-w-[80%]">
+                        <p class="text-sm ${msg.sender === 'ai' ? 'text-[var(--text-primary)]' : 'text-[var(--bg-primary)]'}">${msg.message}</p>
+                    </div>
+                </div>
+            `).join('');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ========== CHAT FUNCTIONS ==========
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            chatHistory.push({ sender: 'user', message });
+            renderChatMessages();
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                chatHistory.push({ sender: 'ai', message: response });
+                renderChatMessages();
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
             }
         }
 
-        setInterval(drawMatrix, 35);
+        function quickCommand(command) {
+            document.getElementById('chatInput').value = command;
+            sendMessage();
+        }
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // =====================
-        // CYBER ANIMATION LINES
-        // =====================
-        const cyberAnimation = document.getElementById('cyberAnimation');
-        
-        function createCyberLine() {
-            const line = document.createElement('div');
-            line.classList.add('cyber-line');
-            line.style.top = Math.random() * 100 + '%';
-            line.style.animationDelay = Math.random() * 10 + 's';
-            cyberAnimation.appendChild(line);
+        function generateAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
             
-            setTimeout(() => {
-                line.remove();
-            }, 10000);
-        }
-
-        // Create cyber lines periodically
-        setInterval(createCyberLine, 2000);
-
-        // Initial lines
-        for(let i = 0; i < 5; i++) {
-            setTimeout(createCyberLine, i * 1000);
-        }
-
-        // =====================
-        // NAVBAR SCROLL EFFECT
-        // =====================
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+            if (lowerMessage.includes('book') || lowerMessage.includes('appointment')) {
+                return 'I can help you book an appointment. Please provide: 1) Patient name, 2) Preferred department, 3) Preferred date and time. For example: "Book appointment for John Doe in Cardiology tomorrow at 10 AM"';
+            } else if (lowerMessage.includes('availability') || lowerMessage.includes('available')) {
+                const availableDoctors = doctors.filter(d => d.status === 'available');
+                return `Currently ${availableDoctors.length} doctors are available: ${availableDoctors.map(d => d.name).join(', ')}. Would you like to book an appointment with any of them?`;
+            } else if (lowerMessage.includes('emergency')) {
+                return 'EMERGENCY PROTOCOL ACTIVATED. I am notifying all available medical staff. Please provide patient location and condition. Emergency team will respond within 2 minutes.';
+            } else if (lowerMessage.includes('queue') || lowerMessage.includes('waiting')) {
+                const waiting = patients.filter(p => p.status === 'waiting').length;
+                return `There are currently ${waiting} patients in the waiting queue. Average wait time is 18 minutes. The next token to be called is A003.`;
+            } else if (lowerMessage.includes('doctor')) {
+                return `We have ${doctors.length} doctors on duty today across 5 departments. ${doctors.filter(d => d.status === 'available').length} are currently available for appointments.`;
             } else {
-                navbar.classList.remove('scrolled');
+                return 'I can help you with: booking appointments, checking doctor availability, managing patient queue, emergency protocols, and general hospital inquiries. What would you like to know?';
+            }
+        }
+
+        // ========== MODAL FUNCTIONS ==========
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('active');
+        }
+
+        function openPatientModal() {
+            alert('Patient registration form would open here');
+        }
+
+        function openDoctorModal() {
+            alert('Doctor registration form would open here');
+        }
+
+        function openSettings() {
+            alert('Settings panel would open here');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function submitBooking(event) {
+            event.preventDefault();
+            closeModal('bookingModal');
+            addActivity('New appointment booked successfully');
+            showNotification('Appointment booked successfully!');
+        }
+
+        // ========== NOTIFICATION FUNCTIONS ==========
+        function toggleNotifications() {
+            const panel = document.getElementById('notificationPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function clearNotifications() {
+            document.getElementById('notificationList').innerHTML = '<p class="p-4 text-center text-[var(--text-muted)]">No notifications</p>';
+            document.getElementById('notifBadge').style.display = 'none';
+        }
+
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // ========== EMERGENCY FUNCTIONS ==========
+        function triggerEmergency() {
+            document.getElementById('emergencyModal').classList.add('active');
+            addActivity('EMERGENCY ALERT triggered by receptionist');
+        }
+
+        // ========== CALL FUNCTIONS ==========
+        function simulateIncomingCall() {
+            const callCard = document.getElementById('incomingCallCard');
+            callCard.style.display = 'block';
+            document.getElementById('callerInfo').textContent = `+91 ${Math.floor(9000000000 + Math.random() * 999999999).toString().slice(0, 10)}`;
+        }
+
+        function acceptCall() {
+            document.getElementById('incomingCallCard').style.display = 'none';
+            addActivity('Incoming call answered by AI agent');
+            setTimeout(simulateIncomingCall, 30000);
+        }
+
+        function rejectCall() {
+            document.getElementById('incomingCallCard').style.display = 'none';
+            setTimeout(simulateIncomingCall, 30000);
+        }
+
+        // ========== HELPER FUNCTIONS ==========
+        function getStatusClass(status) {
+            const classes = {
+                'waiting': 'bg-[var(--accent-warning)]/20 text-[var(--accent-warning)]',
+                'in-consultation': 'bg-[var(--accent-primary)]/20 text-[var(--accent-primary)]',
+                'checked-in': 'bg-[var(--accent-info)]/20 text-[var(--accent-info)]'
+            };
+            return classes[status] || 'bg-[var(--text-muted)]/20 text-[var(--text-muted)]';
+        }
+
+        function formatStatus(status) {
+            return status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        }
+
+        function getAppointmentStatusClass(status) {
+            const classes = {
+                'scheduled': 'bg-[var(--accent-info)]/20 text-[var(--accent-info)]',
+                'confirmed': 'bg-[var(--accent-primary)]/20 text-[var(--accent-primary)]',
+                'in-progress': 'bg-[var(--accent-warning)]/20 text-[var(--accent-warning)]',
+                'completed': 'bg-[var(--accent-secondary)]/20 text-[var(--accent-secondary)]',
+                'cancelled': 'bg-[var(--accent-danger)]/20 text-[var(--accent-danger)]'
+            };
+            return classes[status] || 'bg-[var(--text-muted)]/20 text-[var(--text-muted)]';
+        }
+
+        function getDoctorStatusClass(status) {
+            const classes = {
+                'available': 'bg-[var(--accent-primary)]/20 text-[var(--accent-primary)]',
+                'busy': 'bg-[var(--accent-warning)]/20 text-[var(--accent-warning)]',
+                'offline': 'bg-[var(--accent-danger)]/20 text-[var(--accent-danger)]'
+            };
+            return classes[status] || 'bg-[var(--text-muted)]/20 text-[var(--text-muted)]';
+        }
+
+        function getCallTypeClass(type) {
+            const classes = {
+                'inbound': 'bg-[var(--accent-info)]/20 text-[var(--accent-info)]',
+                'outbound': 'bg-[var(--accent-primary)]/20 text-[var(--accent-primary)]',
+                'missed': 'bg-[var(--accent-danger)]/20 text-[var(--accent-danger)]'
+            };
+            return classes[type] || 'bg-[var(--text-muted)]/20 text-[var(--text-muted)]';
+        }
+
+        function getNotificationIconClass(type) {
+            const classes = {
+                'appointment': 'bg-[var(--accent-primary)]/20',
+                'emergency': 'bg-[var(--accent-danger)]/20',
+                'reminder': 'bg-[var(--accent-warning)]/20',
+                'system': 'bg-[var(--accent-info)]/20',
+                'patient': 'bg-[var(--accent-secondary)]/20'
+            };
+            return classes[type] || 'bg-[var(--text-muted)]/20';
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                'appointment': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-primary)]"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>',
+                'emergency': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-danger)]"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>',
+                'reminder': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-warning)]"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+                'system': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-info)]"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33"/></svg>',
+                'patient': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[var(--accent-secondary)]"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'
+            };
+            return icons[type] || '';
+        }
+
+        function populateDoctorSelect() {
+            const select = document.getElementById('doctorSelect');
+            doctors.forEach(doctor => {
+                const option = document.createElement('option');
+                option.value = doctor.id;
+                option.textContent = `${doctor.name} - ${doctor.department}`;
+                select.appendChild(option);
+            });
+        }
+
+        function filterAppointments() {
+            // Implementation for filtering appointments
+            console.log('Filtering appointments...');
+        }
+
+        function searchPatients(query) {
+            // Implementation for searching patients
+            console.log('Searching patients:', query);
+        }
+
+        function handleSearch(query) {
+            // Implementation for global search
+            console.log('Global search:', query);
+        }
+
+        function addActivity(text) {
+            const container = document.getElementById('activityFeed');
+            const newItem = document.createElement('div');
+            newItem.className = 'timeline-item';
+            newItem.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div>
+                    <p class="text-sm text-[var(--text-primary)]">${text}</p>
+                    <p class="text-xs text-[var(--text-muted)] mt-1">Just now</p>
+                </div>
+            `;
+            container.insertBefore(newItem, container.firstChild);
+        }
+
+        // ========== REAL-TIME SIMULATION ==========
+        function simulateRealTimeUpdates() {
+            // Update patient count randomly
+            const patientStat = document.getElementById('statPatients');
+            const currentPatients = parseInt(patientStat.textContent);
+            const change = Math.random() > 0.5 ? 1 : -1;
+            if (currentPatients + change >= 240) {
+                patientStat.textContent = currentPatients + change;
+            }
+
+            // Update queue count
+            const queueStat = document.getElementById('statQueue');
+            const currentQueue = parseInt(queueStat.textContent);
+            const queueChange = Math.random() > 0.6 ? -1 : 1;
+            if (currentQueue + queueChange >= 10 && currentQueue + queueChange <= 25) {
+                queueStat.textContent = currentQueue + queueChange;
+            }
+
+            // Randomly add activity
+            if (Math.random() > 0.7) {
+                const activities = [
+                    'Patient token checked in at reception',
+                    'AI agent processed appointment request',
+                    'Doctor status updated to available',
+                    'New patient registration completed',
+                    'Appointment reminder sent via SMS'
+                ];
+                addActivity(activities[Math.floor(Math.random() * activities.length)]);
+            }
+        }
+
+        // Close notifications when clicking outside
+        document.addEventListener('click', (e) => {
+            const notifPanel = document.getElementById('notificationPanel');
+            const notifButton = e.target.closest('[onclick="toggleNotifications()"]');
+            if (!notifPanel.contains(e.target) && !notifButton) {
+                notifPanel.classList.add('hidden');
             }
         });
 
-        // =====================
-        // MOBILE MENU TOGGLE
-        // =====================
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // =====================
-        // SMOOTH SCROLLING
-        // =====================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // =====================
-        // SCROLL TO TOP BUTTON
-        // =====================
-        const scrollTopBtn = document.getElementById('scrollTop');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
+        // Close modals with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
             }
         });
 
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // =====================
-        // FADE IN ANIMATION ON SCROLL
-        // =====================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // =====================
-        // CONTACT FORM
-        // =====================
-        const contactForm = document.getElementById('contactForm');
-        const toast = document.getElementById('toast');
-
-        function showToast(message, duration = 3000) {
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, duration);
-        }
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            // Create mailto link
-            const mailtoLink = `mailto:yashsh9982@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            showToast('Opening your email client...');
-            
-            // Reset form
-            contactForm.reset();
-        });
-
-        // =====================
-        // TYPING EFFECT FOR HERO SECTION
-        // =====================
-        const roleElement = document.querySelector('.hero-text .role');
-        const roles = ['Security Engineer', 'Penetration Tester', 'Threat Hunter', 'Cybersecurity Expert'];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 100;
-
-        function typeRole() {
-            const currentRole = roles[roleIndex];
-            
-            if (isDeleting) {
-                roleElement.textContent = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 50;
-            } else {
-                roleElement.textContent = currentRole.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 100;
+        // Animation for chart bars
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes growUp {
+                from { height: 0; }
+                to { height: var(--target-height); }
             }
-            
-            if (!isDeleting && charIndex === currentRole.length) {
-                isDeleting = true;
-                typingSpeed = 2000; // Pause at end
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                typingSpeed = 500; // Pause before new word
-            }
-            
-            setTimeout(typeRole, typingSpeed);
-        }
-
-        // Start typing effect after page load
-        setTimeout(typeRole, 2000);
-
-        // =====================
-        // PARTICLE EFFECT ON HERO SECTION
-        // =====================
-        const heroParticles = document.getElementById('heroParticles');
-
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particle.style.animationDelay = Math.random() * 5 + 's';
-            
-            heroParticles.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 20000);
-        }
-
-        // Create initial particles
-        for(let i = 0; i < 20; i++) {
-            setTimeout(createParticle, i * 300);
-        }
-
-        // Continue creating particles
-        setInterval(createParticle, 2000);
-
-        // =====================
-        // SKILL BAR ANIMATION
-        // =====================
-        const skillCards = document.querySelectorAll('.skill-card');
-        
-        const skillObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillItems = entry.target.querySelectorAll('.skill-items span');
-                    skillItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.animation = 'fadeInUp 0.5s ease forwards';
-                        }, index * 100);
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-
-        skillCards.forEach(card => {
-            skillObserver.observe(card);
-        });
-
-        // Add fadeInUp animation
-        const fadeInUpStyle = document.createElement('style');
-        fadeInUpStyle.textContent = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+            @keyframes progressFill {
+                from { width: 0; }
             }
         `;
-        document.head.appendChild(fadeInUpStyle);
-
-        // =====================
-        // CERTIFICATE MODAL
-        // =====================
-        const modal = document.getElementById('certModal');
-        const modalImg = document.getElementById('certImage');
-        const closeBtn = document.querySelector('.close');
-        
-        // Certificate images mapping
-        const certImages = {
-            'ceh': 'https://drive.google.com/uc?export=view&id=1JKTGP-ZPI3GOWUoO0vvSu_wUS4GczAlh',
-            'cnd': 'https://drive.google.com/uc?export=view&id=1mJCf2kkpB2l40zvZsrdgDGGpYnFa92zk',
-            'ecss': 'https://drive.google.com/uc?export=view&id=1TyVU-2x1CxnopM_42OIxCFUFG76tHHDj',
-            'networking': 'https://drive.google.com/uc?export=view&id=1JKTGP-ZPI3GOWUoO0vvSu_wUS4GczAlh'
-        };
-        
-        // Add click event to certificate cards
-        document.querySelectorAll('.cert-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const certType = this.getAttribute('data-cert');
-                if (certImages[certType]) {
-                    modal.style.display = 'block';
-                    modalImg.src = certImages[certType];
-                }
-            });
-        });
-        
-        // Close modal when clicking on close button
-        closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-        
-        // Close modal when clicking outside of the modal content
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-
-        // =====================
-        // NAVIGATION ACTIVE STATE
-        // =====================
-        const sections = document.querySelectorAll('section');
-        const navItems = document.querySelectorAll('.nav-links a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href').slice(1) === current) {
-                    item.classList.add('active');
-                    item.style.color = 'var(--primary-color)';
-                } else {
-                    item.style.color = '';
-                }
-            });
-        });
-
-        // =====================
-        // PERFORMANCE OPTIMIZATION
-        // =====================
-        // Debounce function for scroll events
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Apply debounce to scroll events
-        window.addEventListener('scroll', debounce(() => {
-            // Scroll-related functions here
-        }, 10));
-
-        // =====================
-        // CONSOLE MESSAGE
-        // =====================
-        console.log('%c🛡️ Welcome to Yash Gautam\'s Portfolio! 🛡️', 
-                    'font-size: 20px; color: #00d4ff; font-weight: bold; text-shadow: 0 0 10px #00d4ff;');
-        console.log('%cThis portfolio is protected by advanced security measures.', 
-                    'font-size: 14px; color: #a0a0a0;');
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
